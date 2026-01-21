@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import Desempenho
 
 class NavItemSerializer(serializers.Serializer):
     key = serializers.CharField()
@@ -49,3 +50,11 @@ class PartidaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Partida
         fields = '__all__'
+
+class DesempenhoSerializer(serializers.ModelSerializer):
+    nome_jogador = serializers.ReadOnlyField(source='jogador.nome')
+    posicao_jogador = serializers.ReadOnlyField(source='jogador.posicao')
+
+    class Meta:
+        model = Desempenho
+        fields = ['id', 'partida', 'jogador', 'nome_jogador', 'posicao_jogador', 'nota', 'gols', 'assistencias']

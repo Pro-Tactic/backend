@@ -103,3 +103,20 @@ class Gol(models.Model):
         if self.assistencia:
             desc += f" (Ass: {self.assistencia.nome})"
         return desc
+
+class Desempenho(models.Model):
+    partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='desempenhos')
+    jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE, related_name='desempenhos')
+    
+    nota = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True, help_text="Nota de 0 a 10")
+    
+    gols = models.IntegerField(default=0)
+    assistencias = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ('partida', 'jogador')
+        verbose_name = "Desempenho"
+        verbose_name_plural = "Desempenhos"
+
+    def __str__(self):
+        return f"{self.jogador.nome} - Nota: {self.nota} (Partida: {self.partida})"

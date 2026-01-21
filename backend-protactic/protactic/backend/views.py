@@ -4,6 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
+from .serializers import (ClubeSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, DesempenhoSerializer)
+from .models import Clube, Jogador, Competicao, Partida, Gol, Desempenho
+
 from .navigation import build_navigation_for_user
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
@@ -110,3 +113,15 @@ class GolViewSet(viewsets.ModelViewSet):
     queryset = Gol.objects.all()
     serializer_class = GolSerializer
     permission_classes = [IsAuthenticated]
+
+
+class DesempenhoViewSet(viewsets.ModelViewSet):
+    queryset = Desempenho.objects.all()
+    serializer_class = DesempenhoSerializer
+
+    def get_queryset(self):
+        queryset = Desempenho.objects.all()
+        partida_id = self.request.query_params.get('partida')
+        if partida_id:
+            queryset = queryset.filter(partida_id=partida_id)
+        return queryset
