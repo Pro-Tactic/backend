@@ -9,10 +9,21 @@ class User(AbstractUser):
 
     user_type = models.CharField(
         max_length=10,
-        choices=USER_TYPE_CHOICES
+        choices=USER_TYPE_CHOICES,
+        default='ADMIN'
     )
-    
-    clube = models.ForeignKey('Clube', on_delete=models.SET_NULL, null=True, blank=True)
+
+    clube = models.ForeignKey(
+        'Clube',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    def save(self, *args, **kwargs):
+        if self.user_type != 'TREINADOR':
+            self.user_type = 'ADMIN'
+        super().save(*args, **kwargs)
 
 class Clube(models.Model):
     nome = models.CharField(max_length=100)
@@ -74,7 +85,6 @@ class Jogador(models.Model):
     perna = models.CharField(max_length=20, choices=PERNAS_CHOICES)
     foto = models.ImageField(upload_to='jogadores/', blank=True, null=True)
     
-    # Relationship
     clube = models.ForeignKey(Clube, on_delete=models.CASCADE, related_name='jogadores')
 
     def __str__(self):
