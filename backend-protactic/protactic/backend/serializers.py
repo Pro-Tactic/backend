@@ -49,3 +49,10 @@ class PartidaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Partida
         fields = '__all__'
+
+from .models import Escalacao
+
+class EscalacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Escalacao
+        fields = '__all__'

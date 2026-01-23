@@ -113,3 +113,20 @@ class Gol(models.Model):
         if self.assistencia:
             desc += f" (Ass: {self.assistencia.nome})"
         return desc
+
+class Escalacao(models.Model):
+    STATUS_CHOICES = (
+        ('TITULAR', 'Titular'),
+        ('RESERVA', 'Reserva'),
+    )
+
+    partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='escalacoes')
+    clube = models.ForeignKey(Clube, on_delete=models.CASCADE, related_name='escalacoes')
+    jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE, related_name='escalacoes')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    
+    class Meta:
+        unique_together = ('partida', 'jogador') # Um jogador só pode estar escalado uma vez por partida
+
+    def __str__(self):
+        return f"{self.jogador.nome} - {self.status} ({self.partida})"

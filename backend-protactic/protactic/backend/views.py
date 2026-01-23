@@ -110,3 +110,18 @@ class GolViewSet(viewsets.ModelViewSet):
     queryset = Gol.objects.all()
     serializer_class = GolSerializer
     permission_classes = [IsAuthenticated]
+
+from .models import Escalacao
+from .serializers import EscalacaoSerializer
+
+class EscalacaoViewSet(viewsets.ModelViewSet):
+    queryset = Escalacao.objects.all()
+    serializer_class = EscalacaoSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        partida = self.request.query_params.get('partida', None)
+        if partida:
+            queryset = queryset.filter(partida=partida)
+        return queryset
