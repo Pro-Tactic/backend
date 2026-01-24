@@ -3,8 +3,12 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import viewsets
 from .navigation import build_navigation_for_user
+
+from .models import Clube, Desempenho
+from .serializers import ClubeSerializer, DesempenhoSerializer
+
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -34,9 +38,6 @@ class NavigationView(APIView):
         }
         return Response(data)
 
-from rest_framework import viewsets
-from .models import Clube
-from .serializers import ClubeSerializer
 
 class ClubeViewSet(viewsets.ModelViewSet):
     queryset = Clube.objects.all()
@@ -65,7 +66,7 @@ class CompeticaoViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 class BuscaGlobalView(APIView):
-    permission_classes = [IsAuthenticated] # Aberto para o autocomplete funcionar livremente
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         termo = request.query_params.get('q', '')
@@ -75,21 +76,18 @@ class BuscaGlobalView(APIView):
 
         resultados = []
 
-        # 1. Busca Jogadores
-        jogadores = Jogador.objects.filter(nome__icontains=termo)[:3] # Pega top 3
+        jogadores = Jogador.objects.filter(nome__icontains=termo)[:3]
         s_jogadores = JogadorSerializer(jogadores, many=True).data
         for item in s_jogadores:
-            item['tipo'] = 'JOGADOR' # Etiqueta para o Front saber a cor/ícone
+            item['tipo'] = 'JOGADOR' 
             resultados.append(item)
 
-        # 2. Busca Competições
         competicoes = Competicao.objects.filter(nome__icontains=termo)[:3]
         s_competicoes = CompeticaoSerializer(competicoes, many=True).data
         for item in s_competicoes:
             item['tipo'] = 'COMPETICAO'
             resultados.append(item)
 
-        # 3. Busca Clubes (Adicionei esse bônus já que vi o model ali)
         clubes = Clube.objects.filter(nome__icontains=termo)[:3]
         s_clubes = ClubeSerializer(clubes, many=True).data
         for item in s_clubes:
@@ -124,4 +122,21 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
         partida = self.request.query_params.get('partida', None)
         if partida:
             queryset = queryset.filter(partida=partida)
+        return queryset
+    
+class DesempenhoViewSet(viewsets.ModelViewSet):
+    queryset = Desempenho.objects.all()
+    serializer_class = DesempenhoSerializer
+
+    def get_queryset(self):
+        queryset = Desempenho.objects.all()
+        
+        partida_id = self.request.query_params.get('partida')
+        if partida_id:
+            queryset = queryset.filter(partida_id=partida_id)
+        
+        jogador_id = self.request.query_params.get('jogador')
+        if jogador_id:
+            queryset = queryset.filter(jogador_id=jogador_id)
+        
         return queryset
