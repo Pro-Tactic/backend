@@ -125,6 +125,10 @@ class Escalacao(models.Model):
     jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE, related_name='escalacoes')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     
+    # Coordenadas (porcentagem 0-100)
+    x = models.FloatField(null=True, blank=True)
+    y = models.FloatField(null=True, blank=True)
+    
     class Meta:
         unique_together = ('partida', 'jogador') # Um jogador só pode estar escalado uma vez por partida
 
