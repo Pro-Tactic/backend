@@ -8,7 +8,7 @@ router.register(r'jogadores', JogadorViewSet, basename='jogador')
 router.register(r'competicoes', CompeticaoViewSet)
 router.register(r'partidas', PartidaViewSet)
 router.register(r'gols', GolViewSet)
-router.register(r'escalacao', EscalacaoViewSet)
+router.register(r'escalacoes', EscalacaoViewSet)
 
 urlpatterns = [
     path('', LoginView.as_view(), name='login'),
