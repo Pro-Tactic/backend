@@ -134,3 +134,17 @@ class Escalacao(models.Model):
 
     def __str__(self):
         return f"{self.jogador.nome} - {self.status} ({self.partida})"
+
+class Desempenho(models.Model):
+    partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='desempenhos')
+    jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE, related_name='desempenhos')
+    nota = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True) # Ex: 8.5
+    gols = models.IntegerField(default=0)
+    assistencias = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ('partida', 'jogador')
+        verbose_name = "Desempenho"
+
+    def __str__(self):
+        return f"{self.jogador.nome} - {self.nota}"

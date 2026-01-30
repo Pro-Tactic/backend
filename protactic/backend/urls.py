@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import LoginView, NavigationView, ClubeViewSet, JogadorViewSet, CompeticaoViewSet, BuscaGlobalView, PartidaViewSet, GolViewSet, EscalacaoViewSet
+from .views import LoginView, NavigationView, ClubeViewSet, JogadorViewSet, CompeticaoViewSet, BuscaGlobalView, PartidaViewSet, GolViewSet, EscalacaoViewSet, DesempenhoViewSet
 
 router = DefaultRouter()
 router.register(r'clubes', ClubeViewSet)
@@ -9,6 +9,7 @@ router.register(r'competicoes', CompeticaoViewSet)
 router.register(r'partidas', PartidaViewSet)
 router.register(r'gols', GolViewSet)
 router.register(r'escalacoes', EscalacaoViewSet)
+router.register(r'desempenhos', DesempenhoViewSet)
 
 urlpatterns = [
     path('', LoginView.as_view(), name='login'),

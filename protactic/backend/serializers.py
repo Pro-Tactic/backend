@@ -56,3 +56,13 @@ class EscalacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Escalacao
         fields = '__all__'
+
+from .models import Desempenho
+
+class DesempenhoSerializer(serializers.ModelSerializer):
+    nome_jogador = serializers.ReadOnlyField(source='jogador.nome')
+    posicao_jogador = serializers.ReadOnlyField(source='jogador.posicao')
+
+    class Meta:
+        model = Desempenho
+        fields = ['id', 'partida', 'jogador', 'nome_jogador', 'posicao_jogador', 'nota', 'gols', 'assistencias']

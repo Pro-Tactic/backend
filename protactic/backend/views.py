@@ -3,6 +3,9 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
+from .serializers import ClubeSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer
 
 from .navigation import build_navigation_for_user
 
@@ -34,17 +37,11 @@ class NavigationView(APIView):
         }
         return Response(data)
 
-from rest_framework import viewsets
-from .models import Clube
-from .serializers import ClubeSerializer
-
 class ClubeViewSet(viewsets.ModelViewSet):
     queryset = Clube.objects.all()
     serializer_class = ClubeSerializer
     permission_classes = [IsAuthenticated]
 
-from .models import Jogador
-from .serializers import JogadorSerializer
 
 class JogadorViewSet(viewsets.ModelViewSet):
     serializer_class = JogadorSerializer
@@ -56,8 +53,6 @@ class JogadorViewSet(viewsets.ModelViewSet):
             return Jogador.objects.filter(clube=user.clube)
         return Jogador.objects.all()
 
-from .models import Competicao
-from .serializers import CompeticaoSerializer
 
 class CompeticaoViewSet(viewsets.ModelViewSet):
     queryset = Competicao.objects.all()
@@ -98,8 +93,6 @@ class BuscaGlobalView(APIView):
 
         return Response(resultados)
     
-from .models import Partida, Gol
-from .serializers import PartidaSerializer, GolSerializer
 
 class PartidaViewSet(viewsets.ModelViewSet):
     queryset = Partida.objects.all().order_by('-data_hora') 
@@ -111,8 +104,6 @@ class GolViewSet(viewsets.ModelViewSet):
     serializer_class = GolSerializer
     permission_classes = [IsAuthenticated]
 
-from .models import Escalacao
-from .serializers import EscalacaoSerializer
 
 class EscalacaoViewSet(viewsets.ModelViewSet):
     queryset = Escalacao.objects.all()
@@ -124,4 +115,21 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
         partida = self.request.query_params.get('partida', None)
         if partida:
             queryset = queryset.filter(partida=partida)
+        return queryset
+    
+class DesempenhoViewSet(viewsets.ModelViewSet):
+    queryset = Desempenho.objects.all()
+    serializer_class = DesempenhoSerializer
+
+    def get_queryset(self):
+        queryset = Desempenho.objects.all()
+        
+        partida_id = self.request.query_params.get('partida')
+        if partida_id:
+            queryset = queryset.filter(partida_id=partida_id)
+        
+        jogador_id = self.request.query_params.get('jogador')
+        if jogador_id:
+            queryset = queryset.filter(jogador_id=jogador_id)
+        
         return queryset

@@ -13,6 +13,7 @@ SUPERUSER_ONLY = [
 
 COACH_ITEMS = [
     {"key": "listar_jogadores", "label": "Listar Jogadores", "path": "/listar-jogadores", "icon": "users"},
+    {"key": "notas", "label": "Avaliação", "path": "/notas", "icon": "notas"},
 ]
 
 def build_navigation_for_user(user):
