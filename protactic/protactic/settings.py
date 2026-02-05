@@ -134,6 +134,7 @@ STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", # Porta padrão do Vite (React)
     "http://localhost:3000", # Porta padrão do Create React App
+    "http://127.0.0.1:5173",
 ]
 
 # Media files

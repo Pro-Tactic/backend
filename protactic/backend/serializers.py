@@ -17,6 +17,16 @@ class ClubeSerializer(serializers.ModelSerializer):
         model = Clube
         fields = '__all__'
 
+class ArtilheiroSerializer(serializers.Serializer):
+    nome = serializers.CharField()
+    gols = serializers.IntegerField()
+    posicao = serializers.CharField()
+
+class ClubeDashboardSerializer(serializers.Serializer):
+    perfil = serializers.DictField()
+    estatisticas = serializers.DictField()
+    artilheiros = ArtilheiroSerializer(many=True)
+
 from .models import Jogador
 
 class JogadorSerializer(serializers.ModelSerializer):

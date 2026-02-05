@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
-from .serializers import ClubeSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer
-
+from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer
+from django.db.models import Q, F, Count, Case, When, IntegerField
 from .navigation import build_navigation_for_user
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
@@ -42,6 +42,74 @@ class ClubeViewSet(viewsets.ModelViewSet):
     serializer_class = ClubeSerializer
     permission_classes = [IsAuthenticated]
 
+class ClubeDashboardView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            clube = Clube.objects.get(pk=pk)
+        except Clube.DoesNotExist:
+            return Response({"error": "Clube não encontrado"}, status=404)
+
+        # 1. Dados Estatísticos Gerais (Aggregation)
+        stats = Partida.objects.filter(Q(mandante=clube) | Q(visitante=clube)).aggregate(
+            total=Count('id'),
+            vitorias=Count('id', filter=Q(
+                (Q(mandante=clube) & Q(placar_mandante__gt=F('placar_visitante'))) |
+                (Q(visitante=clube) & Q(placar_visitante__gt=F('placar_mandante')))
+            )),
+            derrotas=Count('id', filter=Q(
+                (Q(mandante=clube) & Q(placar_mandante__lt=F('placar_visitante'))) |
+                (Q(visitante=clube) & Q(placar_visitante__lt=F('placar_mandante')))
+            )),
+        )
+
+        total = stats['total']
+        vitorias = stats['vitorias']
+        derrotas = stats['derrotas']
+        empates = total - (vitorias + derrotas)
+
+        # 2. Histórico Geral (Últimas 5 Partidas)
+        historico_query = Partida.objects.filter(
+            Q(mandante=clube) | Q(visitante=clube)
+        ).order_by('-data_hora')[:5]
+
+        historico_partidas = []
+        for p in historico_query:
+            if p.mandante == clube:
+                adversario = p.visitante.nome
+                placar = f"{p.placar_mandante} - {p.placar_visitante}"
+                res = 'V' if p.placar_mandante > p.placar_visitante else ('D' if p.placar_mandante < p.placar_visitante else 'E')
+            else:
+                adversario = p.mandante.nome
+                placar = f"{p.placar_visitante} - {p.placar_mandante}"
+                res = 'V' if p.placar_visitante > p.placar_mandante else ('D' if p.placar_visitante < p.placar_mandante else 'E')
+            
+            historico_partidas.append({
+                "adversario": adversario,
+                "placar": placar,
+                "resultado": res,
+                "data": p.data_hora.strftime('%d/%m/%Y')
+            })
+
+        # 3. Resposta Final Estruturada
+        return Response({
+            "perfil": {
+                "nome": clube.nome,
+                "pais": clube.pais,
+                "ano": clube.ano_fundacao,
+                "escudo": request.build_absolute_uri(clube.escudo.url) if clube.escudo else None,
+                "historia": getattr(clube, 'historia', None) # Puxa se existir o campo no banco
+            },
+            "estatisticas": {
+                "total_jogos": total,
+                "vitorias": vitorias,
+                "derrotas": derrotas,
+                "empates": empates,
+                "aproveitamento": round(((vitorias * 3 + empates) / (total * 3) * 100), 1) if total > 0 else 0
+            },
+            "historico_partidas": historico_partidas
+        })
 
 class JogadorViewSet(viewsets.ModelViewSet):
     serializer_class = JogadorSerializer
