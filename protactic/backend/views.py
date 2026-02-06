@@ -127,6 +127,30 @@ class CompeticaoViewSet(viewsets.ModelViewSet):
     serializer_class = CompeticaoSerializer
     permission_classes = [IsAuthenticated]
 
+class CompeticaoTimesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            Competicao.objects.get(pk=pk)
+        except Competicao.DoesNotExist:
+            return Response({"error": "Competição não encontrada"}, status=404)
+
+        partidas = Partida.objects.filter(competicao_id=pk).values_list(
+            'mandante_id', 'visitante_id'
+        )
+
+        clube_ids = set()
+        for mandante_id, visitante_id in partidas:
+            if mandante_id:
+                clube_ids.add(mandante_id)
+            if visitante_id:
+                clube_ids.add(visitante_id)
+
+        clubes = Clube.objects.filter(id__in=clube_ids).order_by('nome')
+        data = ClubeSerializer(clubes, many=True).data
+        return Response(data)
+
 class BuscaGlobalView(APIView):
     permission_classes = [IsAuthenticated] # Aberto para o autocomplete funcionar livremente
 
