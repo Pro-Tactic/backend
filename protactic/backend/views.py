@@ -127,6 +127,100 @@ class CompeticaoViewSet(viewsets.ModelViewSet):
     serializer_class = CompeticaoSerializer
     permission_classes = [IsAuthenticated]
 
+class CompeticaoTimesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            Competicao.objects.get(pk=pk)
+        except Competicao.DoesNotExist:
+            return Response({"error": "Competição não encontrada"}, status=404)
+
+        partidas = Partida.objects.filter(competicao_id=pk).values_list(
+            'mandante_id', 'visitante_id'
+        )
+
+        clube_ids = set()
+        for mandante_id, visitante_id in partidas:
+            if mandante_id:
+                clube_ids.add(mandante_id)
+            if visitante_id:
+                clube_ids.add(visitante_id)
+
+        clubes = Clube.objects.filter(id__in=clube_ids).order_by('nome')
+        data = ClubeSerializer(clubes, many=True).data
+        return Response(data)
+
+class CompeticaoClubeStatsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, competicao_id, clube_id):
+        try:
+            competicao = Competicao.objects.get(pk=competicao_id)
+        except Competicao.DoesNotExist:
+            return Response({"error": "Competição não encontrada"}, status=404)
+
+        try:
+            clube = Clube.objects.get(pk=clube_id)
+        except Clube.DoesNotExist:
+            return Response({"error": "Clube não encontrado"}, status=404)
+
+        partidas_qs = Partida.objects.filter(
+            competicao=competicao
+        ).filter(
+            Q(mandante=clube) | Q(visitante=clube)
+        ).select_related('mandante', 'visitante').order_by('-data_hora')
+
+        stats = partidas_qs.aggregate(
+            total=Count('id'),
+            vitorias=Count('id', filter=Q(
+                (Q(mandante=clube) & Q(placar_mandante__gt=F('placar_visitante'))) |
+                (Q(visitante=clube) & Q(placar_visitante__gt=F('placar_mandante')))
+            )),
+            derrotas=Count('id', filter=Q(
+                (Q(mandante=clube) & Q(placar_mandante__lt=F('placar_visitante'))) |
+                (Q(visitante=clube) & Q(placar_visitante__lt=F('placar_mandante')))
+            )),
+        )
+
+        total = stats['total']
+        vitorias = stats['vitorias']
+        derrotas = stats['derrotas']
+        empates = total - (vitorias + derrotas)
+
+        jogos = []
+        for p in partidas_qs:
+            if p.mandante_id == clube.id:
+                resultado = 'V' if p.placar_mandante > p.placar_visitante else ('D' if p.placar_mandante < p.placar_visitante else 'E')
+            else:
+                resultado = 'V' if p.placar_visitante > p.placar_mandante else ('D' if p.placar_visitante < p.placar_mandante else 'E')
+
+            jogos.append({
+                "id": p.id,
+                "data": p.data_hora.strftime('%d/%m/%Y'),
+                "mandante": p.mandante.nome,
+                "visitante": p.visitante.nome,
+                "placar_mandante": p.placar_mandante,
+                "placar_visitante": p.placar_visitante,
+                "resultado": resultado,
+            })
+
+        return Response({
+            "competicao": {"id": competicao.id, "nome": competicao.nome},
+            "clube": {
+                "id": clube.id,
+                "nome": clube.nome,
+                "escudo": request.build_absolute_uri(clube.escudo.url) if clube.escudo else None,
+            },
+            "estatisticas": {
+                "total_jogos": total,
+                "vitorias": vitorias,
+                "derrotas": derrotas,
+                "empates": empates,
+            },
+            "jogos": jogos,
+        })
+
 class BuscaGlobalView(APIView):
     permission_classes = [IsAuthenticated] # Aberto para o autocomplete funcionar livremente
 

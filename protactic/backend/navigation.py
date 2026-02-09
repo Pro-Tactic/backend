@@ -3,6 +3,7 @@ BASE_ITEMS = [
     {"key": "elenco", "label": "Central do Elenco", "path": "/elenco", "icon": "users"},
     {"key": "adversario", "label": "Adversário", "path": "/adversario", "icon": "target"},
     {"key": "tempo_real", "label": "Tempo Real", "path": "/tempo-real", "icon": "activity"},
+    {"key": "competicoes", "label": "Competições", "path": "/competicoes", "icon": "trophy"},
     {"key": "clube", "label": "Clube", "path": "/clube", "icon": "building"},
 ]
 
