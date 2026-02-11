@@ -18,11 +18,11 @@ COACH_ITEMS = [
 ]
 
 def build_navigation_for_user(user):
+    if user.is_superuser:
+        return list(SUPERUSER_ONLY)
+
     items = list(BASE_ITEMS)
 
-    if user.is_superuser:
-        items.extend(SUPERUSER_ONLY)
-    
     if user.user_type == 'TREINADOR':
         items.extend(COACH_ITEMS)
 
