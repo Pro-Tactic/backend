@@ -19,7 +19,7 @@ class ClubeAdmin(admin.ModelAdmin):
 
 @admin.register(Jogador)
 class JogadorAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'posicao', 'clube', 'nacionalidade')
+    list_display = ('nome', 'posicao', 'clube', 'nacionalidade', 'data_nascimento')
     list_filter = ('posicao', 'clube')
     search_fields = ('nome',)
 

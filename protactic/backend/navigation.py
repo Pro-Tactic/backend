@@ -2,7 +2,7 @@
 COACH_ITEMS = [
     {"key": "inicio", "label": "Início", "path": "/inicio", "icon": "home"},
     {"key": "elenco", "label": "Central do Elenco", "path": "/elenco", "icon": "users"},
-    {"key": "adversario", "label": "Adversário", "path": "/adversario", "icon": "target"},
+    {"key": "adversario", "label": "Previsões", "path": "/adversario", "icon": "target"},
     {"key": "tempo_real", "label": "Tempo Real", "path": "/tempo-real", "icon": "activity"},
     {"key": "competicoes", "label": "Competições & Clubes", "path": "/competicoes", "icon": "trophy"},
     {"key": "listar_jogadores", "label": "Listar Jogadores", "path": "/listar-jogadores", "icon": "users"},

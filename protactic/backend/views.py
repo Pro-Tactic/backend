@@ -7,6 +7,7 @@ from rest_framework import viewsets
 from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
 from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer
 from django.db.models import Q, F, Count, Case, When, IntegerField
+from django.utils import timezone
 from .navigation import build_navigation_for_user
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
@@ -36,6 +37,133 @@ class NavigationView(APIView):
             "items": build_navigation_for_user(u),
         }
         return Response(data)
+
+
+class CoachHomeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+
+        if user.user_type != 'TREINADOR' or not user.clube:
+            return Response({
+                "detail": "Conteúdo disponível apenas para treinador com clube associado."
+            }, status=403)
+
+        clube = user.clube
+
+        stats = Partida.objects.filter(
+            Q(mandante=clube) | Q(visitante=clube)
+        ).aggregate(
+            total=Count('id'),
+            vitorias=Count('id', filter=Q(
+                (Q(mandante=clube) & Q(placar_mandante__gt=F('placar_visitante'))) |
+                (Q(visitante=clube) & Q(placar_visitante__gt=F('placar_mandante')))
+            )),
+            derrotas=Count('id', filter=Q(
+                (Q(mandante=clube) & Q(placar_mandante__lt=F('placar_visitante'))) |
+                (Q(visitante=clube) & Q(placar_visitante__lt=F('placar_mandante')))
+            )),
+        )
+
+        total = stats['total']
+        vitorias = stats['vitorias']
+        derrotas = stats['derrotas']
+        empates = total - (vitorias + derrotas)
+
+        proxima_partida = Partida.objects.filter(
+            Q(mandante=clube) | Q(visitante=clube),
+            data_hora__gte=timezone.now()
+        ).select_related('mandante', 'visitante', 'competicao').order_by('data_hora').first()
+
+        provavel_escalacao = []
+        origem_escalacao = None
+
+        if proxima_partida:
+            titulares = Escalacao.objects.filter(
+                partida=proxima_partida,
+                clube=clube,
+                status='TITULAR'
+            ).select_related('jogador').order_by('jogador__posicao', 'jogador__nome')
+
+            provavel_escalacao = [
+                {
+                    "jogador_id": item.jogador_id,
+                    "nome": item.jogador.nome,
+                    "posicao": item.jogador.posicao,
+                    "x": item.x,
+                    "y": item.y,
+                }
+                for item in titulares
+            ]
+
+            if provavel_escalacao:
+                origem_escalacao = "partida"
+
+        if not provavel_escalacao:
+            fallback_titulares = Escalacao.objects.filter(
+                clube=clube,
+                status='TITULAR'
+            ).values(
+                'jogador_id',
+                'jogador__nome',
+                'jogador__posicao'
+            ).annotate(
+                qtd=Count('id')
+            ).order_by('-qtd', 'jogador__nome')[:11]
+
+            provavel_escalacao = [
+                {
+                    "jogador_id": item['jogador_id'],
+                    "nome": item['jogador__nome'],
+                    "posicao": item['jogador__posicao'],
+                    "x": None,
+                    "y": None,
+                    "frequencia_titular": item['qtd'],
+                }
+                for item in fallback_titulares
+            ]
+
+            if provavel_escalacao:
+                origem_escalacao = "historico"
+
+        proximo_jogo_data = None
+        if proxima_partida:
+            if proxima_partida.mandante_id == clube.id:
+                adversario = proxima_partida.visitante.nome
+                local = "Casa"
+            else:
+                adversario = proxima_partida.mandante.nome
+                local = "Fora"
+
+            proximo_jogo_data = {
+                "id": proxima_partida.id,
+                "data_hora": proxima_partida.data_hora.isoformat(),
+                "competicao": proxima_partida.competicao.nome if proxima_partida.competicao else None,
+                "adversario": adversario,
+                "local": local,
+                "estadio": proxima_partida.local,
+            }
+
+        return Response({
+            "clube": {
+                "id": clube.id,
+                "nome": clube.nome,
+                "pais": clube.pais,
+                "ano_fundacao": clube.ano_fundacao,
+                "escudo": request.build_absolute_uri(clube.escudo.url) if clube.escudo else None,
+            },
+            "estatisticas": {
+                "total_jogos": total,
+                "vitorias": vitorias,
+                "derrotas": derrotas,
+                "empates": empates,
+                "aproveitamento": round(((vitorias * 3 + empates) / (total * 3) * 100), 1) if total > 0 else 0,
+            },
+            "proximo_jogo": proximo_jogo_data,
+            "provavel_escalacao": provavel_escalacao,
+            "origem_escalacao": origem_escalacao,
+        })
 
 class ClubeViewSet(viewsets.ModelViewSet):
     queryset = Clube.objects.all()
@@ -148,6 +276,10 @@ class CompeticaoTimesView(APIView):
                 clube_ids.add(visitante_id)
 
         clubes = Clube.objects.filter(id__in=clube_ids).order_by('nome')
+
+        if request.user.user_type == 'TREINADOR' and request.user.clube_id:
+            clubes = clubes.exclude(id=request.user.clube_id)
+
         data = ClubeSerializer(clubes, many=True).data
         return Response(data)
 

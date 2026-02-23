@@ -77,9 +77,9 @@ class Jogador(models.Model):
 
     nome = models.CharField(max_length=150)
     cpf = models.CharField(max_length=14, unique=True)
-    idade = models.IntegerField()
+    data_nascimento = models.DateField(null=True, blank=True)
     peso = models.FloatField(help_text="Peso em kg")
-    altura = models.FloatField(help_text="Altura em metros")
+    altura = models.FloatField(help_text="Altura em cm")
     nacionalidade = models.CharField(max_length=50)
     posicao = models.CharField(max_length=30, choices=POSICOES_CHOICES)
     perna = models.CharField(max_length=20, choices=PERNAS_CHOICES)
