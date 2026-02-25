@@ -11,8 +11,8 @@ from django.contrib.auth import get_user_model
 def run():
     print("Setting up test data...")
     # Create Clubes
-    clube1, _ = Clube.objects.get_or_create(nome="Clube A", pais="Brasil", ano_fundacao=1900)
-    clube2, _ = Clube.objects.get_or_create(nome="Clube B", pais="Brasil", ano_fundacao=1910)
+    clube1, _ = Clube.objects.get_or_create(nome="Clube A", pais="Brasil", data_criacao="1900-01-01")
+    clube2, _ = Clube.objects.get_or_create(nome="Clube B", pais="Brasil", data_criacao="1910-01-01")
 
     # Create Players
     player1, _ = Jogador.objects.get_or_create(

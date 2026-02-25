@@ -13,7 +13,7 @@ def run():
         nome="Protactic FC",
         defaults={
             "pais": "Brasil",
-            "ano_fundacao": 2024
+            "data_criacao": "2024-01-01"
         }
     )
     if created:

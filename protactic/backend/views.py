@@ -8,6 +8,7 @@ from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escala
 from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer
 from django.db.models import Q, F, Count, Case, When, IntegerField
 from django.utils import timezone
+from collections import defaultdict
 from .navigation import build_navigation_for_user
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
@@ -150,7 +151,7 @@ class CoachHomeView(APIView):
                 "id": clube.id,
                 "nome": clube.nome,
                 "pais": clube.pais,
-                "ano_fundacao": clube.ano_fundacao,
+                "data_criacao": clube.data_criacao.isoformat() if clube.data_criacao else None,
                 "escudo": request.build_absolute_uri(clube.escudo.url) if clube.escudo else None,
             },
             "estatisticas": {
@@ -178,6 +179,8 @@ class ClubeDashboardView(APIView):
             clube = Clube.objects.get(pk=pk)
         except Clube.DoesNotExist:
             return Response({"error": "Clube não encontrado"}, status=404)
+
+        ultimos_jogos_param = (request.query_params.get('ultimos_jogos') or '5').strip().lower()
 
         # 1. Dados Estatísticos Gerais (Aggregation)
         stats = Partida.objects.filter(Q(mandante=clube) | Q(visitante=clube)).aggregate(
@@ -220,12 +223,135 @@ class ClubeDashboardView(APIView):
                 "data": p.data_hora.strftime('%d/%m/%Y')
             })
 
-        # 3. Resposta Final Estruturada
+        # 3. Filtro de jogos para ranking
+        partidas_base = Partida.objects.filter(
+            Q(mandante=clube) | Q(visitante=clube)
+        ).order_by('-data_hora')
+
+        if ultimos_jogos_param == 'all':
+            partidas_filtradas = partidas_base
+            ultimos_jogos_usado = 'all'
+        else:
+            try:
+                limite_jogos = int(ultimos_jogos_param)
+            except ValueError:
+                limite_jogos = 5
+            if limite_jogos <= 0:
+                limite_jogos = 5
+
+            partidas_filtradas = partidas_base[:limite_jogos]
+            ultimos_jogos_usado = limite_jogos
+
+        partida_ids_filtradas = list(partidas_filtradas.values_list('id', flat=True))
+
+        gols_clube_qs = Gol.objects.filter(
+            partida_id__in=partida_ids_filtradas,
+            autor__clube=clube
+        ).select_related('autor', 'assistencia', 'partida__mandante', 'partida__visitante').order_by(
+            '-partida__data_hora', '-minuto'
+        )
+
+        ranking_artilheiros = gols_clube_qs.values('autor_id', 'autor__nome').annotate(
+            gols=Count('id')
+        ).order_by('-gols', 'autor__nome')[:10]
+
+        ranking_assistentes = gols_clube_qs.filter(
+            assistencia__isnull=False,
+            assistencia__clube=clube
+        ).values('assistencia_id', 'assistencia__nome').annotate(
+            assistencias=Count('id')
+        ).order_by('-assistencias', 'assistencia__nome')[:10]
+
+        participacoes_gols = []
+        for gol in gols_clube_qs[:80]:
+            partida = gol.partida
+            if partida.mandante_id == clube.id:
+                adversario = partida.visitante.nome
+            else:
+                adversario = partida.mandante.nome
+
+            participacoes_gols.append({
+                "partida_id": partida.id,
+                "data": partida.data_hora.strftime('%d/%m/%Y'),
+                "adversario": adversario,
+                "autor": gol.autor.nome,
+                "assistencia": gol.assistencia.nome if gol.assistencia else None,
+                "minuto": gol.minuto,
+            })
+
+        # 4. Escalações mais usadas
+        titulares_qs = Escalacao.objects.filter(
+            clube=clube,
+            status='TITULAR'
+        ).select_related('jogador', 'partida__mandante', 'partida__visitante')
+
+        por_partida = defaultdict(list)
+        for item in titulares_qs:
+            por_partida[item.partida_id].append(item)
+
+        formacao_counter = defaultdict(int)
+        formacoes_partida = []
+
+        for _, itens in por_partida.items():
+            if not itens:
+                continue
+
+            partida = itens[0].partida
+
+            def_count = 0
+            mid_count = 0
+            att_count = 0
+
+            for e in itens:
+                pos = (e.jogador.posicao or '').strip()
+                if pos in ['Zagueiro', 'Lateral Esquerdo', 'Lateral Direito']:
+                    def_count += 1
+                elif pos in ['Volante', 'Meio-campista', 'Meia Atacante']:
+                    mid_count += 1
+                elif pos in ['Ponta Esquerda', 'Ponta Direita', 'Centroavante']:
+                    att_count += 1
+
+            formacao = f"{def_count}-{mid_count}-{att_count}"
+            formacao_counter[formacao] += 1
+
+            if partida.mandante_id == clube.id:
+                adversario = partida.visitante.nome
+            else:
+                adversario = partida.mandante.nome
+
+            formacoes_partida.append({
+                "partida_id": partida.id,
+                "data": partida.data_hora.strftime('%d/%m/%Y'),
+                "data_hora": partida.data_hora.isoformat(),
+                "adversario": adversario,
+                "formacao": formacao,
+                "titulares": [
+                    {
+                        "jogador_id": e.jogador_id,
+                        "nome": e.jogador.nome,
+                        "posicao": e.jogador.posicao,
+                    }
+                    for e in itens
+                ]
+            })
+
+        formacoes_partida.sort(key=lambda x: x['data_hora'], reverse=True)
+        for formacao in formacoes_partida:
+            formacao.pop('data_hora', None)
+
+        todas_escalacoes = [
+            {"formacao": f, "vezes": qtd}
+            for f, qtd in sorted(formacao_counter.items(), key=lambda kv: (-kv[1], kv[0]))
+        ]
+
+        escalacao_mais_usada = todas_escalacoes[0] if todas_escalacoes else None
+
+        # 5. Resposta Final Estruturada
         return Response({
             "perfil": {
                 "nome": clube.nome,
                 "pais": clube.pais,
-                "ano": clube.ano_fundacao,
+                "data_criacao": clube.data_criacao.isoformat() if clube.data_criacao else None,
                 "escudo": request.build_absolute_uri(clube.escudo.url) if clube.escudo else None,
                 "historia": getattr(clube, 'historia', None) # Puxa se existir o campo no banco
             },
@@ -236,7 +362,31 @@ class ClubeDashboardView(APIView):
                 "empates": empates,
                 "aproveitamento": round(((vitorias * 3 + empates) / (total * 3) * 100), 1) if total > 0 else 0
             },
-            "historico_partidas": historico_partidas
+            "historico_partidas": historico_partidas,
+            "filtro_ranking": {
+                "ultimos_jogos": ultimos_jogos_usado,
+                "total_partidas_consideradas": len(partida_ids_filtradas),
+            },
+            "ranking_artilheiros": [
+                {
+                    "jogador_id": item['autor_id'],
+                    "nome": item['autor__nome'],
+                    "gols": item['gols'],
+                }
+                for item in ranking_artilheiros
+            ],
+            "ranking_assistentes": [
+                {
+                    "jogador_id": item['assistencia_id'],
+                    "nome": item['assistencia__nome'],
+                    "assistencias": item['assistencias'],
+                }
+                for item in ranking_assistentes
+            ],
+            "participacoes_gols": participacoes_gols,
+            "escalacao_mais_usada": escalacao_mais_usada,
+            "todas_escalacoes": todas_escalacoes,
+            "formacoes_partida": formacoes_partida,
         })
 
 class JogadorViewSet(viewsets.ModelViewSet):
@@ -287,6 +437,8 @@ class CompeticaoClubeStatsView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, competicao_id, clube_id):
+        ultimos_jogos_param = (request.query_params.get('ultimos_jogos') or '5').strip().lower()
+
         try:
             competicao = Competicao.objects.get(pk=competicao_id)
         except Competicao.DoesNotExist:
@@ -320,6 +472,114 @@ class CompeticaoClubeStatsView(APIView):
         derrotas = stats['derrotas']
         empates = total - (vitorias + derrotas)
 
+        if ultimos_jogos_param == 'all':
+            partidas_ranking_qs = partidas_qs
+            ultimos_jogos_usado = 'all'
+        else:
+            try:
+                limite_jogos = int(ultimos_jogos_param)
+            except ValueError:
+                limite_jogos = 5
+            if limite_jogos <= 0:
+                limite_jogos = 5
+            partidas_ranking_qs = partidas_qs[:limite_jogos]
+            ultimos_jogos_usado = limite_jogos
+
+        partida_ids_ranking = list(partidas_ranking_qs.values_list('id', flat=True))
+
+        gols_clube_qs = Gol.objects.filter(
+            partida_id__in=partida_ids_ranking,
+            autor__clube=clube
+        ).select_related('autor', 'assistencia', 'partida__mandante', 'partida__visitante').order_by(
+            '-partida__data_hora', '-minuto'
+        )
+
+        ranking_artilheiros = gols_clube_qs.values('autor_id', 'autor__nome').annotate(
+            gols=Count('id')
+        ).order_by('-gols', 'autor__nome')[:10]
+
+        ranking_assistentes = gols_clube_qs.filter(
+            assistencia__isnull=False,
+            assistencia__clube=clube
+        ).values('assistencia_id', 'assistencia__nome').annotate(
+            assistencias=Count('id')
+        ).order_by('-assistencias', 'assistencia__nome')[:10]
+
+        participacoes_gols = []
+        for gol in gols_clube_qs[:80]:
+            partida = gol.partida
+            adversario = partida.visitante.nome if partida.mandante_id == clube.id else partida.mandante.nome
+
+            participacoes_gols.append({
+                "partida_id": partida.id,
+                "data": partida.data_hora.strftime('%d/%m/%Y'),
+                "adversario": adversario,
+                "autor": gol.autor.nome,
+                "assistencia": gol.assistencia.nome if gol.assistencia else None,
+                "minuto": gol.minuto,
+            })
+
+        titulares_qs = Escalacao.objects.filter(
+            clube=clube,
+            partida__in=partidas_qs,
+            status='TITULAR'
+        ).select_related('jogador', 'partida__mandante', 'partida__visitante')
+
+        por_partida = defaultdict(list)
+        for item in titulares_qs:
+            por_partida[item.partida_id].append(item)
+
+        formacao_counter = defaultdict(int)
+        formacoes_partida = []
+
+        for _, itens in por_partida.items():
+            partida = itens[0].partida
+
+            def_count = 0
+            mid_count = 0
+            att_count = 0
+
+            for e in itens:
+                pos = (e.jogador.posicao or '').strip()
+                if pos in ['Zagueiro', 'Lateral Esquerdo', 'Lateral Direito']:
+                    def_count += 1
+                elif pos in ['Volante', 'Meio-campista', 'Meia Atacante']:
+                    mid_count += 1
+                elif pos in ['Ponta Esquerda', 'Ponta Direita', 'Centroavante']:
+                    att_count += 1
+
+            formacao = f"{def_count}-{mid_count}-{att_count}"
+            formacao_counter[formacao] += 1
+
+            adversario = partida.visitante.nome if partida.mandante_id == clube.id else partida.mandante.nome
+
+            formacoes_partida.append({
+                "partida_id": partida.id,
+                "data": partida.data_hora.strftime('%d/%m/%Y'),
+                "data_hora": partida.data_hora.isoformat(),
+                "adversario": adversario,
+                "formacao": formacao,
+                "titulares": [
+                    {
+                        "jogador_id": e.jogador_id,
+                        "nome": e.jogador.nome,
+                        "posicao": e.jogador.posicao,
+                    }
+                    for e in itens
+                ]
+            })
+
+        formacoes_partida.sort(key=lambda x: x['data_hora'], reverse=True)
+        for formacao in formacoes_partida:
+            formacao.pop('data_hora', None)
+
+        todas_escalacoes = [
+            {"formacao": f, "vezes": qtd}
+            for f, qtd in sorted(formacao_counter.items(), key=lambda kv: (-kv[1], kv[0]))
+        ]
+
+        escalacao_mais_usada = todas_escalacoes[0] if todas_escalacoes else None
+
         jogos = []
         for p in partidas_qs:
             if p.mandante_id == clube.id:
@@ -351,6 +611,30 @@ class CompeticaoClubeStatsView(APIView):
                 "empates": empates,
             },
             "jogos": jogos,
+            "filtro_ranking": {
+                "ultimos_jogos": ultimos_jogos_usado,
+                "total_partidas_consideradas": len(partida_ids_ranking),
+            },
+            "ranking_artilheiros": [
+                {
+                    "jogador_id": item['autor_id'],
+                    "nome": item['autor__nome'],
+                    "gols": item['gols'],
+                }
+                for item in ranking_artilheiros
+            ],
+            "ranking_assistentes": [
+                {
+                    "jogador_id": item['assistencia_id'],
+                    "nome": item['assistencia__nome'],
+                    "assistencias": item['assistencias'],
+                }
+                for item in ranking_assistentes
+            ],
+            "participacoes_gols": participacoes_gols,
+            "escalacao_mais_usada": escalacao_mais_usada,
+            "todas_escalacoes": todas_escalacoes,
+            "formacoes_partida": formacoes_partida,
         })
 
 class BuscaGlobalView(APIView):

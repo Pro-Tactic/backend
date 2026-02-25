@@ -28,7 +28,7 @@ class User(AbstractUser):
 class Clube(models.Model):
     nome = models.CharField(max_length=100)
     pais = models.CharField(max_length=50)
-    ano_fundacao = models.IntegerField()
+    data_criacao = models.DateField()
     escudo = models.ImageField(upload_to='escudos/', blank=True, null=True)
 
     def __str__(self):

@@ -14,7 +14,7 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Clube)
 class ClubeAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'pais', 'ano_fundacao')
+    list_display = ('nome', 'pais', 'data_criacao')
     search_fields = ('nome',)
 
 @admin.register(Jogador)
