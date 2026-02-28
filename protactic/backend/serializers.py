@@ -72,12 +72,16 @@ class CompeticaoSerializer(serializers.ModelSerializer):
 from .models import Partida, Gol
 
 class GolSerializer(serializers.ModelSerializer):
+    id = serializers.SerializerMethodField(read_only=True)
     nome_autor = serializers.ReadOnlyField(source='autor.nome')
     nome_assistencia = serializers.ReadOnlyField(source='assistencia.nome')
 
     class Meta:
         model = Gol
-        fields = '__all__'
+        fields = ['id', 'partida', 'autor', 'assistencia', 'minuto', 'nome_autor', 'nome_assistencia']
+
+    def get_id(self, obj):
+        return f"{obj.autor_id}:{obj.partida_id}:{obj.minuto}"
 
 class PartidaSerializer(serializers.ModelSerializer):
     gols = GolSerializer(many=True, read_only=True)
@@ -130,16 +134,25 @@ class PartidaSerializer(serializers.ModelSerializer):
 from .models import Escalacao
 
 class EscalacaoSerializer(serializers.ModelSerializer):
+    id = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Escalacao
-        fields = '__all__'
+        fields = ['id', 'partida', 'jogador', 'status', 'x', 'y']
+
+    def get_id(self, obj):
+        return f"{obj.partida_id}:{obj.jogador_id}"
 
 from .models import Desempenho
 
 class DesempenhoSerializer(serializers.ModelSerializer):
+    id = serializers.SerializerMethodField(read_only=True)
     nome_jogador = serializers.ReadOnlyField(source='jogador.nome')
     posicao_jogador = serializers.ReadOnlyField(source='jogador.posicao')
 
     class Meta:
         model = Desempenho
         fields = ['id', 'partida', 'jogador', 'nome_jogador', 'posicao_jogador', 'nota', 'gols', 'assistencias']
+
+    def get_id(self, obj):
+        return f"{obj.partida_id}:{obj.jogador_id}"

@@ -1,6 +1,9 @@
-Ajeitar segurança, nesse video fiz varias entradas e saidas na tela de login e continuo logado(autenticação)
+# TODO: Ajeitar segurança, nesse video fiz varias entradas e saidas na tela de login e continuo logado(autenticação)
 django
 djangorestframework
 django-cors-headers
 djangorestframework-simplejwt
 Pillow
+psycopg2-binary
+python-dotenv
+dj-database-url

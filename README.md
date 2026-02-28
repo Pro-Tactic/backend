@@ -48,7 +48,7 @@ Antes de começar, certifique-se de ter instalado:
 - **Python 3.8+** [Download aqui](https://www.python.org/downloads/)
 - **pip** (gerenciador de pacotes Python)
 - **Git** (controle de versão)
-- **MySQL** ou **SQLite** (banco de dados)
+- **PostgreSQL (Supabase)** ou **SQLite** (fallback local)
 
 ### Verificar instalação
 
@@ -114,16 +114,14 @@ DEBUG=True
 SECRET_KEY=seu-secret-key-aqui
 ALLOWED_HOSTS=localhost,127.0.0.1
 
-# Database
-DB_ENGINE=django.db.backends.sqlite3
-DB_NAME=db.sqlite3
+# Database (Supabase)
+# Exemplo: postgresql://postgres:[SENHA]@db.[PROJECT-REF].supabase.co:5432/postgres
+DATABASE_URL=postgresql://postgres:SUA_SENHA@db.SEUPROJECTREF.supabase.co:5432/postgres
+DB_SSL_REQUIRE=True
 
 # CORS
 CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
 
-# JWT
-JWT_SECRET_KEY=seu-jwt-secret-aqui
-JWT_ALGORITHM=HS256
 ```
 
 ### Configurações Django
@@ -132,9 +130,9 @@ As configurações principais estão em `protactic/settings.py`:
 
 - **DEBUG**: Modo desenvolvimento (True) / produção (False)
 - **ALLOWED_HOSTS**: Hosts permitidos
+- **DATABASE_URL**: conexão com PostgreSQL do Supabase
 - **INSTALLED_APPS**: Aplicações registradas
 - **CORS**: Configuração de requisições cross-origin
-- **JWT**: Autenticação por token JWT
 
 ## 🚀 Como Rodar
 

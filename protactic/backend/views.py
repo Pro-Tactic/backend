@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
+from django.http import Http404
 from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
 from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer
 from django.db.models import Q, F, Count, Case, When, IntegerField
@@ -83,7 +84,7 @@ class CoachHomeView(APIView):
         if proxima_partida:
             titulares = Escalacao.objects.filter(
                 partida=proxima_partida,
-                clube=clube,
+                jogador__clube=clube,
                 status='TITULAR'
             ).select_related('jogador').order_by('jogador__posicao', 'jogador__nome')
 
@@ -103,14 +104,14 @@ class CoachHomeView(APIView):
 
         if not provavel_escalacao:
             fallback_titulares = Escalacao.objects.filter(
-                clube=clube,
+                jogador__clube=clube,
                 status='TITULAR'
             ).values(
                 'jogador_id',
                 'jogador__nome',
                 'jogador__posicao'
             ).annotate(
-                qtd=Count('id')
+                qtd=Count('jogador')
             ).order_by('-qtd', 'jogador__nome')[:11]
 
             provavel_escalacao = [
@@ -252,14 +253,14 @@ class ClubeDashboardView(APIView):
         )
 
         ranking_artilheiros = gols_clube_qs.values('autor_id', 'autor__nome').annotate(
-            gols=Count('id')
+            gols=Count('minuto')
         ).order_by('-gols', 'autor__nome')[:10]
 
         ranking_assistentes = gols_clube_qs.filter(
             assistencia__isnull=False,
             assistencia__clube=clube
         ).values('assistencia_id', 'assistencia__nome').annotate(
-            assistencias=Count('id')
+            assistencias=Count('minuto')
         ).order_by('-assistencias', 'assistencia__nome')[:10]
 
         participacoes_gols = []
@@ -281,7 +282,7 @@ class ClubeDashboardView(APIView):
 
         # 4. Escalações mais usadas
         titulares_qs = Escalacao.objects.filter(
-            clube=clube,
+            jogador__clube=clube,
             status='TITULAR'
         ).select_related('jogador', 'partida__mandante', 'partida__visitante')
 
@@ -495,14 +496,14 @@ class CompeticaoClubeStatsView(APIView):
         )
 
         ranking_artilheiros = gols_clube_qs.values('autor_id', 'autor__nome').annotate(
-            gols=Count('id')
+            gols=Count('minuto')
         ).order_by('-gols', 'autor__nome')[:10]
 
         ranking_assistentes = gols_clube_qs.filter(
             assistencia__isnull=False,
             assistencia__clube=clube
         ).values('assistencia_id', 'assistencia__nome').annotate(
-            assistencias=Count('id')
+            assistencias=Count('minuto')
         ).order_by('-assistencias', 'assistencia__nome')[:10]
 
         participacoes_gols = []
@@ -520,7 +521,7 @@ class CompeticaoClubeStatsView(APIView):
             })
 
         titulares_qs = Escalacao.objects.filter(
-            clube=clube,
+            jogador__clube=clube,
             partida__in=partidas_qs,
             status='TITULAR'
         ).select_related('jogador', 'partida__mandante', 'partida__visitante')
@@ -682,11 +683,37 @@ class GolViewSet(viewsets.ModelViewSet):
     serializer_class = GolSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_object(self):
+        lookup = self.kwargs.get(self.lookup_field)
+        try:
+            autor_id, partida_id, minuto = lookup.split(':', 2)
+        except ValueError:
+            raise Http404
+        try:
+            obj = Gol.objects.get(autor_id=autor_id, partida_id=partida_id, minuto=minuto)
+        except Gol.DoesNotExist:
+            raise Http404
+        self.check_object_permissions(self.request, obj)
+        return obj
+
 
 class EscalacaoViewSet(viewsets.ModelViewSet):
     queryset = Escalacao.objects.all()
     serializer_class = EscalacaoSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        lookup = self.kwargs.get(self.lookup_field)
+        try:
+            partida_id, jogador_id = lookup.split(':', 1)
+        except ValueError:
+            raise Http404
+        try:
+            obj = Escalacao.objects.get(partida_id=partida_id, jogador_id=jogador_id)
+        except Escalacao.DoesNotExist:
+            raise Http404
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -698,6 +725,19 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
 class DesempenhoViewSet(viewsets.ModelViewSet):
     queryset = Desempenho.objects.all()
     serializer_class = DesempenhoSerializer
+
+    def get_object(self):
+        lookup = self.kwargs.get(self.lookup_field)
+        try:
+            partida_id, jogador_id = lookup.split(':', 1)
+        except ValueError:
+            raise Http404
+        try:
+            obj = Desempenho.objects.get(partida_id=partida_id, jogador_id=jogador_id)
+        except Desempenho.DoesNotExist:
+            raise Http404
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     def get_queryset(self):
         queryset = Desempenho.objects.all()

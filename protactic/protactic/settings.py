@@ -10,22 +10,37 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+import dj_database_url
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
+
+
+def get_bool_env(var_name, default=False):
+    return os.getenv(var_name, str(default)).strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
+def get_list_env(var_name, default=''):
+    raw_value = os.getenv(var_name, default)
+    return [item.strip() for item in raw_value.split(',') if item.strip()]
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k=c1)-_n303ha(c@oh14=wtecaet*2$hg45%a9@mi&nmqbcqpe'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-k=c1)-_n303ha(c@oh14=wtecaet*2$hg45%a9@mi&nmqbcqpe')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_bool_env('DEBUG', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = get_list_env('ALLOWED_HOSTS', 'localhost,127.0.0.1')
 
 
 # Application definition
@@ -87,12 +102,23 @@ WSGI_APPLICATION = 'protactic.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=get_bool_env('DB_SSL_REQUIRE', True)
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -131,12 +157,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173", # Porta padrão do Vite (React)
-    "http://localhost:3000", # Porta padrão do Create React App
-    "http://127.0.0.1:5173",
-]
+CORS_ALLOWED_ORIGINS = get_list_env(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173'
+)
 
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
