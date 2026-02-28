@@ -11,7 +11,34 @@ class NavResponseSerializer(serializers.Serializer):
     user = serializers.DictField()
     items = NavItemSerializer(many=True)
 
-from .models import Clube
+from .models import Clube, User
+
+
+class TecnicoCreateSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, min_length=6)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'password', 'clube', 'user_type']
+        read_only_fields = ['id', 'user_type']
+
+    def validate_username(self, value):
+        if User.objects.filter(username__iexact=value).exists():
+            raise serializers.ValidationError("Já existe um usuário com esse login.")
+        return value
+
+    def validate_clube(self, value):
+        if not value:
+            raise serializers.ValidationError("É obrigatório vincular o técnico a um clube.")
+        return value
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        validated_data['user_type'] = 'TREINADOR'
+        user = User(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
 
 class ClubeSerializer(serializers.ModelSerializer):
     class Meta:

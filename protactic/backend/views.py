@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from django.http import Http404
 from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
-from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer
+from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer, TecnicoCreateSerializer
 from django.db.models import Q, F, Count, Case, When, IntegerField
 from django.utils import timezone
 from collections import defaultdict
@@ -24,6 +24,30 @@ class CustomTokenSerializer(TokenObtainPairSerializer):
 
 class LoginView(TokenObtainPairView):
     serializer_class = CustomTokenSerializer
+
+
+class TecnicoCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        if not (user.is_superuser or user.user_type == 'ADMIN'):
+            return Response({"detail": "Apenas administradores podem cadastrar técnicos."}, status=403)
+
+        serializer = TecnicoCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        tecnico = serializer.save()
+
+        return Response(
+            {
+                "id": tecnico.id,
+                "username": tecnico.username,
+                "email": tecnico.email,
+                "user_type": tecnico.user_type,
+                "clube": tecnico.clube_id,
+            },
+            status=201,
+        )
 
 class NavigationView(APIView):
     permission_classes = [IsAuthenticated]
