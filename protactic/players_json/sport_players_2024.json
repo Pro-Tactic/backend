@@ -1,0 +1,3247 @@
+{
+    "get": "players",
+    "parameters": {
+        "team": "123",
+        "season": "2024"
+    },
+    "errors": [],
+    "results": 20,
+    "paging": {
+        "current": 1,
+        "total": 4
+    },
+    "response": [
+        {
+            "player": {
+                "id": 1054,
+                "name": "Renan",
+                "firstname": "Renan",
+                "lastname": "dos Santos",
+                "age": 36,
+                "birth": {
+                    "date": "1989-05-18",
+                    "place": "Rio de Janeiro",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "189",
+                "weight": "87",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/1054.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 1066,
+                "name": "Wanderson",
+                "firstname": "Wanderson",
+                "lastname": "Cristaldo Farias",
+                "age": 37,
+                "birth": {
+                    "date": "1988-01-02",
+                    "place": "Cruzeiro do Oeste",
+                    "country": "Brazil"
+                },
+                "nationality": "Bulgaria",
+                "height": "167",
+                "weight": "61",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/1066.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 9325,
+                "name": "Jorginho",
+                "firstname": "Jorge",
+                "lastname": "de Moura Xavier",
+                "age": 34,
+                "birth": {
+                    "date": "1991-01-05",
+                    "place": "Goiânia",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "180",
+                "weight": "64",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/9325.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 9340,
+                "name": "Sabino",
+                "firstname": "José Sabino",
+                "lastname": "Chagas Monteiro",
+                "age": 29,
+                "birth": {
+                    "date": "1996-10-25",
+                    "place": "Brasília",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "184",
+                "weight": "88",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/9340.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 9558,
+                "name": "Chico",
+                "firstname": "Francisco",
+                "lastname": "Alves da Silva Neto",
+                "age": 27,
+                "birth": {
+                    "date": "1998-09-14",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/9558.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 72,
+                        "name": "Serie B",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/72.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 30,
+                        "lineups": 25,
+                        "minutes": 1929,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": "6.917391",
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 5,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": 14,
+                        "on": 8
+                    },
+                    "goals": {
+                        "total": 2,
+                        "conceded": 0,
+                        "assists": 1,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": 1239,
+                        "key": 7,
+                        "accuracy": 44
+                    },
+                    "tackles": {
+                        "total": 20,
+                        "blocks": 7,
+                        "interceptions": 10
+                    },
+                    "duels": {
+                        "total": 92,
+                        "won": 55
+                    },
+                    "dribbles": {
+                        "attempts": 4,
+                        "success": 2,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": 7,
+                        "committed": 19
+                    },
+                    "cards": {
+                        "yellow": 3,
+                        "yellowred": null,
+                        "red": 1
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 73,
+                        "name": "Copa Do Brasil",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/73.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 2
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": 0,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 9572,
+                "name": "Ronaldo",
+                "firstname": "Ronaldo Henrique",
+                "lastname": "Ferreira da Silva",
+                "age": 31,
+                "birth": {
+                    "date": "1994-06-27",
+                    "place": "Recife",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "177",
+                "weight": "73",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/9572.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 9789,
+                "name": "Igor Cariús",
+                "firstname": "Igor",
+                "lastname": "Aquino da Silva",
+                "age": 32,
+                "birth": {
+                    "date": "1993-05-01",
+                    "place": "Cariús",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "184",
+                "weight": "82",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/9789.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 72,
+                        "name": "Serie B",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/72.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 21,
+                        "lineups": 19,
+                        "minutes": 1405,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": "7.050000",
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 2,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": 11,
+                        "on": 3
+                    },
+                    "goals": {
+                        "total": 1,
+                        "conceded": 0,
+                        "assists": 2,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": 498,
+                        "key": 21,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": 40,
+                        "blocks": 2,
+                        "interceptions": 27
+                    },
+                    "duels": {
+                        "total": 147,
+                        "won": 86
+                    },
+                    "dribbles": {
+                        "attempts": 8,
+                        "success": 3,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": 18,
+                        "committed": 19
+                    },
+                    "cards": {
+                        "yellow": 3,
+                        "yellowred": null,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 10197,
+                "name": "Eduardo",
+                "firstname": "Carlos Eduardo",
+                "lastname": "Santos Oliveira",
+                "age": 39,
+                "birth": {
+                    "date": "1986-11-20",
+                    "place": "Maceió",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "171",
+                "weight": "75",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/10197.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 10436,
+                "name": "Edinho",
+                "firstname": "Francisco Edson",
+                "lastname": "Moreira da Silva",
+                "age": 31,
+                "birth": {
+                    "date": "1994-08-08",
+                    "place": "Baturité",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "158",
+                "weight": "60",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/10436.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 51587,
+                "name": "F. Labandeira",
+                "firstname": "Facundo",
+                "lastname": "Labandeira Castro",
+                "age": 29,
+                "birth": {
+                    "date": "1996-03-03",
+                    "place": "Mendoza Chico",
+                    "country": "Uruguay"
+                },
+                "nationality": "Uruguay",
+                "height": "173",
+                "weight": "65",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/51587.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 54874,
+                "name": "Michel",
+                "firstname": "Michel",
+                "lastname": "Barbosa de Lima",
+                "age": 28,
+                "birth": {
+                    "date": "1997-05-12",
+                    "place": "Salvador",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "186",
+                "weight": "87",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/54874.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 80314,
+                "name": "Denis",
+                "firstname": "Denis César",
+                "lastname": "de Matos",
+                "age": 38,
+                "birth": {
+                    "date": "1987-04-14",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "188 cm",
+                "weight": "86 kg",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/80314.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 72,
+                        "name": "Serie B",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/72.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 0
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 73,
+                        "name": "Copa Do Brasil",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/73.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 0
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 137606,
+                "name": "Ewerthon",
+                "firstname": "Ewerthon",
+                "lastname": "Diógenes Da Silva",
+                "age": 25,
+                "birth": {
+                    "date": "2000-11-10",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "171",
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/137606.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 195090,
+                "name": "Peglow",
+                "firstname": "João Gabriel",
+                "lastname": "Martins Peglow",
+                "age": 23,
+                "birth": {
+                    "date": "2002-01-07",
+                    "place": "Porto Alegre",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "173",
+                "weight": "73",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/195090.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 305042,
+                "name": "Victor Gabriel",
+                "firstname": "Victor Gabriel",
+                "lastname": "da Conceição Ribeiro",
+                "age": 21,
+                "birth": {
+                    "date": "2004-04-28",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/305042.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 72,
+                        "name": "Serie B",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/72.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 1
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 305866,
+                "name": "Nathan",
+                "firstname": "Nathan",
+                "lastname": "Mendes da Silva",
+                "age": 27,
+                "birth": {
+                    "date": "1998-05-14",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/305866.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 306698,
+                "name": "Matheus Baraka",
+                "firstname": "Matheus Henrique",
+                "lastname": "Miranda do Nascimento",
+                "age": 22,
+                "birth": {
+                    "date": "2003-01-21",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/306698.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 72,
+                        "name": "Serie B",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/72.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 3
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": 0,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 310945,
+                "name": "Denival",
+                "firstname": "Denival",
+                "lastname": "Tenório dos Santos",
+                "age": 25,
+                "birth": {
+                    "date": "2000-08-01",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "203",
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/310945.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 405224,
+                "name": "Adriano",
+                "firstname": "Antônio Adriano",
+                "lastname": "Nascimendo de Sousa",
+                "age": 22,
+                "birth": {
+                    "date": "2003-03-07",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/405224.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 72,
+                        "name": "Serie B",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/72.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 407212,
+                "name": "Gean Carlos",
+                "firstname": "Gean Carlos",
+                "lastname": "Rodrigues de Lima",
+                "age": 22,
+                "birth": {
+                    "date": "2003-03-20",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/407212.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 612,
+                        "name": "Copa do Nordeste",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/612.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 123,
+                        "name": "Sport Recife",
+                        "logo": "https://media.api-sports.io/football/teams/123.png"
+                    },
+                    "league": {
+                        "id": 622,
+                        "name": "Pernambucano - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/622.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        }
+    ]
+}
