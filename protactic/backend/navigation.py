@@ -1,4 +1,3 @@
-# Itens disponíveis para TREINADORES
 COACH_ITEMS = [
     {"key": "inicio", "label": "Início", "path": "/inicio", "icon": "home"},
     {"key": "elenco", "label": "Central do Elenco", "path": "/elenco", "icon": "users"},
@@ -7,11 +6,10 @@ COACH_ITEMS = [
     {"key": "competicoes", "label": "Competições & Clubes", "path": "/competicoes", "icon": "trophy"},
     {"key": "listar_jogadores", "label": "Listar Jogadores", "path": "/listar-jogadores", "icon": "users"},
     {"key": "notas", "label": "Avaliação", "path": "/notas", "icon": "notas"},
+    {"key": "partidas", "label": "Partidas", "path": "/partidas", "icon": "activity"},
 ]
 
-# Itens disponíveis para ADMIN
 ADMIN_ITEMS = [
-    {"key": "partidas", "label": "Partidas", "path": "/partidas", "icon": "activity"},
     {"key": "registro", "label": "Registro", "path": "/registro", "icon": "shield"},
 ]
 

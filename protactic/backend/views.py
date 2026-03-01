@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from django.http import Http404
+from rest_framework.exceptions import PermissionDenied
 from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
 from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer, TecnicoCreateSerializer
 from django.db.models import Q, F, Count, Case, When, IntegerField
@@ -207,7 +208,6 @@ class ClubeDashboardView(APIView):
 
         ultimos_jogos_param = (request.query_params.get('ultimos_jogos') or '5').strip().lower()
 
-        # 1. Dados Estatísticos Gerais (Aggregation)
         stats = Partida.objects.filter(Q(mandante=clube) | Q(visitante=clube)).aggregate(
             total=Count('id'),
             vitorias=Count('id', filter=Q(
@@ -225,7 +225,6 @@ class ClubeDashboardView(APIView):
         derrotas = stats['derrotas']
         empates = total - (vitorias + derrotas)
 
-        # 2. Histórico Geral (Últimas 5 Partidas)
         historico_query = Partida.objects.filter(
             Q(mandante=clube) | Q(visitante=clube)
         ).order_by('-data_hora')[:5]
@@ -736,19 +735,51 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
             obj = Escalacao.objects.get(partida_id=partida_id, jogador_id=jogador_id)
         except Escalacao.DoesNotExist:
             raise Http404
+
+        user = self.request.user
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            if obj.jogador.clube_id != user.clube_id:
+                raise PermissionDenied('Você não pode acessar escalações de outro clube.')
+
         self.check_object_permissions(self.request, obj)
         return obj
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        user = self.request.user
+
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            queryset = queryset.filter(jogador__clube_id=user.clube_id)
+
         partida = self.request.query_params.get('partida', None)
         if partida:
             queryset = queryset.filter(partida=partida)
         return queryset
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        jogador = serializer.validated_data.get('jogador')
+
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            if not jogador or jogador.clube_id != user.clube_id:
+                raise PermissionDenied('Você só pode escalar jogadores do seu clube.')
+
+        serializer.save()
+
+    def perform_update(self, serializer):
+        user = self.request.user
+        jogador = serializer.instance.jogador
+
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            if jogador.clube_id != user.clube_id:
+                raise PermissionDenied('Você não pode editar escalações de outro clube.')
+
+        serializer.save()
     
 class DesempenhoViewSet(viewsets.ModelViewSet):
     queryset = Desempenho.objects.all()
     serializer_class = DesempenhoSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         lookup = self.kwargs.get(self.lookup_field)
@@ -760,11 +791,21 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
             obj = Desempenho.objects.get(partida_id=partida_id, jogador_id=jogador_id)
         except Desempenho.DoesNotExist:
             raise Http404
+
+        user = self.request.user
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            if obj.jogador.clube_id != user.clube_id:
+                raise PermissionDenied('Você não pode acessar desempenho de outro clube.')
+
         self.check_object_permissions(self.request, obj)
         return obj
 
     def get_queryset(self):
         queryset = Desempenho.objects.all()
+        user = self.request.user
+
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            queryset = queryset.filter(jogador__clube_id=user.clube_id)
         
         partida_id = self.request.query_params.get('partida')
         if partida_id:
@@ -775,3 +816,23 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(jogador_id=jogador_id)
         
         return queryset
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        jogador = serializer.validated_data.get('jogador')
+
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            if not jogador or jogador.clube_id != user.clube_id:
+                raise PermissionDenied('Você só pode criar desempenho de jogadores do seu clube.')
+
+        serializer.save()
+
+    def perform_update(self, serializer):
+        user = self.request.user
+        jogador = serializer.instance.jogador
+
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            if jogador.clube_id != user.clube_id:
+                raise PermissionDenied('Você não pode editar desempenho de outro clube.')
+
+        serializer.save()
