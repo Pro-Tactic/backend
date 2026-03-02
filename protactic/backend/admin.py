@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Clube, Jogador, Competicao, Partida, Gol
+from .models import User, Clube, Jogador, Competicao, Partida
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
@@ -14,12 +14,12 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Clube)
 class ClubeAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'pais', 'ano_fundacao')
+    list_display = ('nome', 'pais', 'data_criacao')
     search_fields = ('nome',)
 
 @admin.register(Jogador)
 class JogadorAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'posicao', 'clube', 'nacionalidade')
+    list_display = ('nome', 'posicao', 'clube', 'nacionalidade', 'data_nascimento')
     list_filter = ('posicao', 'clube')
     search_fields = ('nome',)
 
@@ -33,9 +33,3 @@ class PartidaAdmin(admin.ModelAdmin):
     list_display = ('id', 'data_hora', 'mandante', 'placar_mandante', 'placar_visitante', 'visitante')
     list_filter = ('competicao', 'data_hora')
     search_fields = ('mandante__nome', 'visitante__nome')
-
-@admin.register(Gol)
-class GolAdmin(admin.ModelAdmin):
-    list_display = ('autor', 'minuto', 'partida')
-    list_filter = ('partida',)
-    search_fields = ('autor__nome',)
