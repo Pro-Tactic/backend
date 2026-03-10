@@ -434,22 +434,25 @@ class CompeticaoTimesView(APIView):
 
     def get(self, request, pk):
         try:
-            Competicao.objects.get(pk=pk)
+            competicao = Competicao.objects.get(pk=pk)
         except Competicao.DoesNotExist:
             return Response({"error": "Competição não encontrada"}, status=404)
 
-        partidas = Partida.objects.filter(competicao_id=pk).values_list(
-            'mandante_id', 'visitante_id'
-        )
+        clubes = competicao.clubes_inscritos.all().order_by('nome')
 
-        clube_ids = set()
-        for mandante_id, visitante_id in partidas:
-            if mandante_id:
-                clube_ids.add(mandante_id)
-            if visitante_id:
-                clube_ids.add(visitante_id)
+        if not clubes.exists():
+            partidas = Partida.objects.filter(competicao_id=pk).values_list(
+                'mandante_id', 'visitante_id'
+            )
 
-        clubes = Clube.objects.filter(id__in=clube_ids).order_by('nome')
+            clube_ids = set()
+            for mandante_id, visitante_id in partidas:
+                if mandante_id:
+                    clube_ids.add(mandante_id)
+                if visitante_id:
+                    clube_ids.add(visitante_id)
+
+            clubes = Clube.objects.filter(id__in=clube_ids).order_by('nome')
 
         if request.user.user_type == 'TREINADOR' and request.user.clube_id:
             clubes = clubes.exclude(id=request.user.clube_id)
@@ -662,7 +665,7 @@ class CompeticaoClubeStatsView(APIView):
         })
 
 class BuscaGlobalView(APIView):
-    permission_classes = [IsAuthenticated] # Aberto para o autocomplete funcionar livremente
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         termo = request.query_params.get('q', '')
@@ -672,21 +675,18 @@ class BuscaGlobalView(APIView):
 
         resultados = []
 
-        # 1. Busca Jogadores
-        jogadores = Jogador.objects.filter(nome__icontains=termo)[:3] # Pega top 3
+        jogadores = Jogador.objects.filter(nome__icontains=termo)[:3]
         s_jogadores = JogadorSerializer(jogadores, many=True).data
         for item in s_jogadores:
-            item['tipo'] = 'JOGADOR' # Etiqueta para o Front saber a cor/ícone
+            item['tipo'] = 'JOGADOR'
             resultados.append(item)
 
-        # 2. Busca Competições
         competicoes = Competicao.objects.filter(nome__icontains=termo)[:3]
         s_competicoes = CompeticaoSerializer(competicoes, many=True).data
         for item in s_competicoes:
             item['tipo'] = 'COMPETICAO'
             resultados.append(item)
 
-        # 3. Busca Clubes (Adicionei esse bônus já que vi o model ali)
         clubes = Clube.objects.filter(nome__icontains=termo)[:3]
         s_clubes = ClubeSerializer(clubes, many=True).data
         for item in s_clubes:

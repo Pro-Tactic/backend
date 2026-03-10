@@ -52,6 +52,12 @@ class Clube(models.Model):
     pais = models.CharField(max_length=100, db_column='pais_clube')
     data_criacao = models.DateField(blank=True, null=True, db_column='data_fundacao_clube')
     escudo = models.ImageField(upload_to='escudos/', blank=True, null=True, db_column='escudo_clube')
+    competicoes = models.ManyToManyField(
+        'Competicao',
+        related_name='clubes_inscritos',
+        blank=True,
+        db_table='clube_competicao'
+    )
 
     class Meta:
         db_table = 'clube'
