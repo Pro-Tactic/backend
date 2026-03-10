@@ -72,7 +72,6 @@ class JogadorSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def validate_nome(self, value):
-        # Verifica se já existe um jogador com este nome (excluindo o próprio em caso de update)
         queryset = Jogador.objects.filter(nome__iexact=value)
         if self.instance:
             queryset = queryset.exclude(pk=self.instance.pk)
@@ -88,7 +87,6 @@ class CompeticaoSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def validate_nome(self, value):
-        # Verifica se já existe uma competição com este nome (excluindo a própria em caso de update)
         queryset = Competicao.objects.filter(nome__iexact=value)
         if self.instance:
             queryset = queryset.exclude(pk=self.instance.pk)

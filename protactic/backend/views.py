@@ -701,6 +701,38 @@ class PartidaViewSet(viewsets.ModelViewSet):
     serializer_class = PartidaSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        queryset = Partida.objects.all().order_by('-data_hora')
+        user = self.request.user
+
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            queryset = queryset.filter(
+                Q(mandante_id=user.clube_id) | Q(visitante_id=user.clube_id)
+            )
+
+        return queryset
+
+    def _validate_partida_do_clube(self, mandante, visitante):
+        user = self.request.user
+        if user.user_type == 'TREINADOR' and user.clube_id:
+            if (not mandante or not visitante) or (
+                mandante.id != user.clube_id and visitante.id != user.clube_id
+            ):
+                raise PermissionDenied('Você só pode criar/editar partidas do seu clube.')
+
+    def perform_create(self, serializer):
+        self._validate_partida_do_clube(
+            serializer.validated_data.get('mandante'),
+            serializer.validated_data.get('visitante'),
+        )
+        serializer.save()
+
+    def perform_update(self, serializer):
+        mandante = serializer.validated_data.get('mandante', serializer.instance.mandante)
+        visitante = serializer.validated_data.get('visitante', serializer.instance.visitante)
+        self._validate_partida_do_clube(mandante, visitante)
+        serializer.save()
+
 class GolViewSet(viewsets.ModelViewSet):
     queryset = Gol.objects.all()
     serializer_class = GolSerializer
@@ -740,6 +772,8 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
         if user.user_type == 'TREINADOR' and user.clube_id:
             if obj.jogador.clube_id != user.clube_id:
                 raise PermissionDenied('Você não pode acessar escalações de outro clube.')
+            if obj.partida.mandante_id != user.clube_id and obj.partida.visitante_id != user.clube_id:
+                raise PermissionDenied('Você não pode acessar escalações de partidas de outro clube.')
 
         self.check_object_permissions(self.request, obj)
         return obj
@@ -749,7 +783,11 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
         user = self.request.user
 
         if user.user_type == 'TREINADOR' and user.clube_id:
-            queryset = queryset.filter(jogador__clube_id=user.clube_id)
+            queryset = queryset.filter(
+                jogador__clube_id=user.clube_id
+            ).filter(
+                Q(partida__mandante_id=user.clube_id) | Q(partida__visitante_id=user.clube_id)
+            )
 
         partida = self.request.query_params.get('partida', None)
         if partida:
@@ -759,20 +797,26 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         user = self.request.user
         jogador = serializer.validated_data.get('jogador')
+        partida = serializer.validated_data.get('partida')
 
         if user.user_type == 'TREINADOR' and user.clube_id:
             if not jogador or jogador.clube_id != user.clube_id:
                 raise PermissionDenied('Você só pode escalar jogadores do seu clube.')
+            if not partida or (partida.mandante_id != user.clube_id and partida.visitante_id != user.clube_id):
+                raise PermissionDenied('Você só pode escalar em partidas do seu clube.')
 
         serializer.save()
 
     def perform_update(self, serializer):
         user = self.request.user
-        jogador = serializer.instance.jogador
+        jogador = serializer.validated_data.get('jogador', serializer.instance.jogador)
+        partida = serializer.validated_data.get('partida', serializer.instance.partida)
 
         if user.user_type == 'TREINADOR' and user.clube_id:
             if jogador.clube_id != user.clube_id:
                 raise PermissionDenied('Você não pode editar escalações de outro clube.')
+            if partida.mandante_id != user.clube_id and partida.visitante_id != user.clube_id:
+                raise PermissionDenied('Você não pode editar escalações de partidas de outro clube.')
 
         serializer.save()
     
