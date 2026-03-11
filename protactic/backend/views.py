@@ -328,6 +328,9 @@ class ClubeDashboardView(APIView):
 
             for e in itens:
                 pos = (e.jogador.posicao or '').strip()
+                if e.y is not None and float(e.y) >= 90 and pos != 'Goleiro':
+                    # Ignora legado inválido para não distorcer a formação.
+                    continue
                 if pos in ['Zagueiro', 'Lateral Esquerdo', 'Lateral Direito']:
                     def_count += 1
                 elif pos in ['Volante', 'Meio-campista', 'Meia Atacante']:
@@ -568,6 +571,9 @@ class CompeticaoClubeStatsView(APIView):
 
             for e in itens:
                 pos = (e.jogador.posicao or '').strip()
+                if e.y is not None and float(e.y) >= 90 and pos != 'Goleiro':
+                    # Ignora legado inválido para não distorcer a formação.
+                    continue
                 if pos in ['Zagueiro', 'Lateral Esquerdo', 'Lateral Direito']:
                     def_count += 1
                 elif pos in ['Volante', 'Meio-campista', 'Meia Atacante']:

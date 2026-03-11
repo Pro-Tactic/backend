@@ -159,6 +159,7 @@ class PartidaSerializer(serializers.ModelSerializer):
 from .models import Escalacao
 
 class EscalacaoSerializer(serializers.ModelSerializer):
+    GOLEIRO_LINHA_Y_MIN = 90.0
     id = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -167,6 +168,29 @@ class EscalacaoSerializer(serializers.ModelSerializer):
 
     def get_id(self, obj):
         return f"{obj.partida_id}:{obj.jogador_id}"
+
+    def validate(self, data):
+        jogador = data.get('jogador', getattr(self.instance, 'jogador', None))
+        status = data.get('status', getattr(self.instance, 'status', None))
+        y = data.get('y', getattr(self.instance, 'y', None))
+
+        if not jogador or status != 'TITULAR' or y is None:
+            return data
+
+        is_goleiro = (jogador.posicao or '').strip() == 'Goleiro'
+        esta_na_linha_do_goleiro = float(y) >= self.GOLEIRO_LINHA_Y_MIN
+
+        if not is_goleiro and esta_na_linha_do_goleiro:
+            raise serializers.ValidationError({
+                'y': 'A linha do goleiro permite apenas jogadores da posição Goleiro.'
+            })
+
+        if is_goleiro and not esta_na_linha_do_goleiro:
+            raise serializers.ValidationError({
+                'y': 'O goleiro deve ser posicionado na linha do goleiro.'
+            })
+
+        return data
 
 from .models import Desempenho
 
