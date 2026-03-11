@@ -359,6 +359,8 @@ class ClubeDashboardView(APIView):
                         "jogador_id": e.jogador_id,
                         "nome": e.jogador.nome,
                         "posicao": e.jogador.posicao,
+                        "x": e.x,
+                        "y": e.y,
                     }
                     for e in itens
                 ]
@@ -599,6 +601,8 @@ class CompeticaoClubeStatsView(APIView):
                         "jogador_id": e.jogador_id,
                         "nome": e.jogador.nome,
                         "posicao": e.jogador.posicao,
+                        "x": e.x,
+                        "y": e.y,
                     }
                     for e in itens
                 ]
