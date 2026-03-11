@@ -201,7 +201,22 @@ class DesempenhoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Desempenho
-        fields = ['id', 'partida', 'jogador', 'nome_jogador', 'posicao_jogador', 'nota', 'gols', 'assistencias']
+        fields = ['id', 'partida', 'jogador', 'nome_jogador', 'posicao_jogador', 'nota', 'gols', 'gols_contra', 'assistencias']
 
     def get_id(self, obj):
         return f"{obj.partida_id}:{obj.jogador_id}"
+
+    def validate_gols(self, value):
+        if value < 0:
+            raise serializers.ValidationError('Gols nao pode ser negativo.')
+        return value
+
+    def validate_gols_contra(self, value):
+        if value < 0:
+            raise serializers.ValidationError('Gols contra nao pode ser negativo.')
+        return value
+
+    def validate_assistencias(self, value):
+        if value < 0:
+            raise serializers.ValidationError('Assistencias nao pode ser negativo.')
+        return value

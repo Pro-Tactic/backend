@@ -3,12 +3,14 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
 from django.http import Http404
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
 from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer, TecnicoCreateSerializer
 from django.db.models import Q, F, Count, Case, When, IntegerField
+from django.db import transaction
 from django.utils import timezone
 from collections import defaultdict
 from .navigation import build_navigation_for_user
@@ -830,6 +832,116 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
     queryset = Desempenho.objects.all()
     serializer_class = DesempenhoSerializer
     permission_classes = [IsAuthenticated]
+
+    def _get_gols_do_time(self, partida, clube_id):
+        if partida.mandante_id == clube_id:
+            return int(partida.placar_mandante or 0)
+        if partida.visitante_id == clube_id:
+            return int(partida.placar_visitante or 0)
+        raise ValidationError('O clube informado nao participa desta partida.')
+
+    def _parse_non_negative_int(self, value, field_name):
+        try:
+            parsed = int(value or 0)
+        except (TypeError, ValueError):
+            raise ValidationError({field_name: f'O campo {field_name} deve ser um inteiro.'})
+
+        if parsed < 0:
+            raise ValidationError({field_name: f'O campo {field_name} nao pode ser negativo.'})
+
+        return parsed
+
+    @action(detail=False, methods=['post'], url_path='bulk-save')
+    def bulk_save(self, request):
+        desempenhos_payload = request.data.get('desempenhos')
+        if not isinstance(desempenhos_payload, list) or not desempenhos_payload:
+            raise ValidationError({'desempenhos': 'Informe uma lista de desempenhos para salvar.'})
+
+        user = request.user
+        normalized_items = []
+        partida_ids = set()
+        clube_ids = set()
+
+        for index, raw_item in enumerate(desempenhos_payload):
+            item_serializer = self.get_serializer(data=raw_item)
+            item_serializer.is_valid(raise_exception=True)
+            item = item_serializer.validated_data
+
+            partida = item.get('partida')
+            jogador = item.get('jogador')
+            if not partida or not jogador:
+                raise ValidationError({'desempenhos': f'Item {index + 1} invalido: partida e jogador sao obrigatorios.'})
+
+            if not jogador.clube_id:
+                raise ValidationError({'desempenhos': f'Item {index + 1} invalido: jogador sem clube associado.'})
+
+            if user.user_type == 'TREINADOR' and user.clube_id and jogador.clube_id != user.clube_id:
+                raise PermissionDenied('Voce so pode salvar desempenho de jogadores do seu clube.')
+
+            partida_ids.add(partida.id)
+            clube_ids.add(jogador.clube_id)
+
+            normalized_items.append({
+                'partida': partida,
+                'jogador': jogador,
+                'nota': item.get('nota', 0),
+                'gols': self._parse_non_negative_int(item.get('gols', 0), 'gols'),
+                'gols_contra': self._parse_non_negative_int(item.get('gols_contra', 0), 'gols_contra'),
+                'assistencias': self._parse_non_negative_int(item.get('assistencias', 0), 'assistencias'),
+            })
+
+        if len(partida_ids) != 1:
+            raise ValidationError({'desempenhos': 'Todos os desempenhos devem ser da mesma partida.'})
+
+        if len(clube_ids) != 1:
+            raise ValidationError({'desempenhos': 'Todos os desempenhos devem pertencer ao mesmo clube.'})
+
+        partida = normalized_items[0]['partida']
+        clube_id = next(iter(clube_ids))
+        gols_do_time = self._get_gols_do_time(partida, clube_id)
+
+        total_gols = sum(item['gols'] for item in normalized_items)
+        total_gols_contra = sum(item['gols_contra'] for item in normalized_items)
+        total_assistencias = sum(item['assistencias'] for item in normalized_items)
+
+        if total_gols + total_gols_contra != gols_do_time:
+            raise ValidationError({
+                'gols': (
+                    'A soma de gols + gols contra deve ser igual aos gols marcados pelo time na partida '
+                    f'({gols_do_time}).'
+                )
+            })
+
+        if total_assistencias > gols_do_time:
+            raise ValidationError({
+                'assistencias': (
+                    'A soma de assistencias deve ser menor ou igual aos gols marcados pelo time na partida '
+                    f'({gols_do_time}).'
+                )
+            })
+
+        with transaction.atomic():
+            for item in normalized_items:
+                Desempenho.objects.update_or_create(
+                    partida=item['partida'],
+                    jogador=item['jogador'],
+                    defaults={
+                        'nota': item['nota'],
+                        'gols': item['gols'],
+                        'gols_contra': item['gols_contra'],
+                        'assistencias': item['assistencias'],
+                    }
+                )
+
+        return Response({
+            'detail': 'Desempenhos salvos com sucesso.',
+            'resumo': {
+                'gols_time_partida': gols_do_time,
+                'total_gols': total_gols,
+                'total_gols_contra': total_gols_contra,
+                'total_assistencias': total_assistencias,
+            }
+        }, status=status.HTTP_200_OK)
 
     def get_object(self):
         lookup = self.kwargs.get(self.lookup_field)

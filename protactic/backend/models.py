@@ -179,6 +179,7 @@ class Desempenho(models.Model):
     partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='desempenhos', db_column='id_partida')
     jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE, related_name='desempenhos', db_column='id_jogador')
     gols = models.IntegerField(default=0, db_column='gol_desempenho')
+    gols_contra = models.IntegerField(default=0, db_column='gol_contra_desempenho')
     assistencias = models.IntegerField(default=0, db_column='assistencia_desempenho')
     nota = models.DecimalField(max_digits=4, decimal_places=2, default=0, db_column='nota_desempenho')
     cartao_amarelo = models.IntegerField(default=0, db_column='cartao_amarelo_desempenho')
