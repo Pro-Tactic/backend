@@ -833,6 +833,28 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
     serializer_class = DesempenhoSerializer
     permission_classes = [IsAuthenticated]
 
+    def _titulares_ids_da_partida(self, partida, clube_id):
+        return set(
+            Escalacao.objects.filter(
+                partida=partida,
+                status='TITULAR',
+                jogador__clube_id=clube_id,
+            ).values_list('jogador_id', flat=True)
+        )
+
+    def _validate_jogador_titular(self, partida, jogador):
+        if not partida or not jogador:
+            return
+
+        is_titular = Escalacao.objects.filter(
+            partida=partida,
+            jogador=jogador,
+            status='TITULAR',
+        ).exists()
+
+        if not is_titular:
+            raise ValidationError({'jogador': 'Somente jogadores titulares podem receber notas nesta partida.'})
+
     def _get_gols_do_time(self, partida, clube_id):
         if partida.mandante_id == clube_id:
             return int(partida.placar_mandante or 0)
@@ -899,6 +921,30 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
         partida = normalized_items[0]['partida']
         clube_id = next(iter(clube_ids))
         gols_do_time = self._get_gols_do_time(partida, clube_id)
+
+        titulares_ids = self._titulares_ids_da_partida(partida, clube_id)
+        if not titulares_ids:
+            raise ValidationError({'desempenhos': 'Nao ha titulares escalados para esta partida.'})
+
+        payload_jogadores_ids = [item['jogador'].id for item in normalized_items]
+        payload_jogadores_set = set(payload_jogadores_ids)
+
+        if len(payload_jogadores_ids) != len(payload_jogadores_set):
+            raise ValidationError({'desempenhos': 'Ha jogadores repetidos no payload.'})
+
+        jogadores_nao_titulares = payload_jogadores_set - titulares_ids
+        titulares_faltando = titulares_ids - payload_jogadores_set
+
+        if jogadores_nao_titulares:
+            raise ValidationError({'desempenhos': 'Somente jogadores titulares podem receber notas nesta partida.'})
+
+        if titulares_faltando:
+            raise ValidationError({
+                'desempenhos': (
+                    'Envie desempenhos para todos os titulares da partida '
+                    f'({len(titulares_ids)} jogadores).'
+                )
+            })
 
         total_gols = sum(item['gols'] for item in normalized_items)
         total_gols_contra = sum(item['gols_contra'] for item in normalized_items)
@@ -981,20 +1027,26 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         user = self.request.user
+        partida = serializer.validated_data.get('partida')
         jogador = serializer.validated_data.get('jogador')
 
         if user.user_type == 'TREINADOR' and user.clube_id:
             if not jogador or jogador.clube_id != user.clube_id:
                 raise PermissionDenied('Você só pode criar desempenho de jogadores do seu clube.')
 
+        self._validate_jogador_titular(partida, jogador)
+
         serializer.save()
 
     def perform_update(self, serializer):
         user = self.request.user
-        jogador = serializer.instance.jogador
+        partida = serializer.validated_data.get('partida', serializer.instance.partida)
+        jogador = serializer.validated_data.get('jogador', serializer.instance.jogador)
 
         if user.user_type == 'TREINADOR' and user.clube_id:
             if jogador.clube_id != user.clube_id:
                 raise PermissionDenied('Você não pode editar desempenho de outro clube.')
+
+        self._validate_jogador_titular(partida, jogador)
 
         serializer.save()
