@@ -159,21 +159,27 @@ class Escalacao(models.Model):
         ('TITULAR', 'Titular'),
         ('RESERVA', 'Reserva'),
     )
+    TIPO_CHOICES = (
+        ('PADRAO', 'Padrão'),
+        ('DEFENSIVA', 'Defensiva'),
+        ('OFENSIVA', 'Ofensiva'),
+    )
 
     partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='escalacoes', db_column='id_partida')
     jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE, related_name='escalacoes', db_column='id_jogador')
+    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, default='PADRAO', db_column='tipo_escalacao')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, db_column='status_escalacao')
     
     # Coordenadas (porcentagem 0-100)
     x = models.FloatField(null=True, blank=True, db_column='coord_x_escalacao')
     y = models.FloatField(null=True, blank=True, db_column='coord_y_escalacao')
-    pk = models.CompositePrimaryKey('partida', 'jogador')
+    pk = models.CompositePrimaryKey('partida', 'jogador', 'tipo')
     
     class Meta:
         db_table = 'escalacao'
 
     def __str__(self):
-        return f"{self.jogador.nome} - {self.status} ({self.partida})"
+        return f"{self.jogador.nome} - {self.status} [{self.tipo}] ({self.partida})"
 
 class Desempenho(models.Model):
     partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='desempenhos', db_column='id_partida')

@@ -164,10 +164,10 @@ class EscalacaoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Escalacao
-        fields = ['id', 'partida', 'jogador', 'status', 'x', 'y']
+        fields = ['id', 'partida', 'jogador', 'tipo', 'status', 'x', 'y']
 
     def get_id(self, obj):
-        return f"{obj.partida_id}:{obj.jogador_id}"
+        return f"{obj.partida_id}:{obj.jogador_id}:{obj.tipo}"
 
     def validate(self, data):
         jogador = data.get('jogador', getattr(self.instance, 'jogador', None))

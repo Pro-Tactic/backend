@@ -128,6 +128,7 @@ class CoachHomeView(APIView):
             titulares = Escalacao.objects.filter(
                 partida=proxima_partida,
                 jogador__clube=clube,
+                tipo='PADRAO',
                 status='TITULAR'
             ).select_related('jogador').order_by('jogador__posicao', 'jogador__nome')
 
@@ -148,6 +149,7 @@ class CoachHomeView(APIView):
         if not provavel_escalacao:
             fallback_titulares = Escalacao.objects.filter(
                 jogador__clube=clube,
+                tipo='PADRAO',
                 status='TITULAR'
             ).values(
                 'jogador_id',
@@ -324,6 +326,7 @@ class ClubeDashboardView(APIView):
         # 4. Escalações mais usadas
         titulares_qs = Escalacao.objects.filter(
             jogador__clube=clube,
+            tipo='PADRAO',
             status='TITULAR'
         ).select_related('jogador', 'partida__mandante', 'partida__visitante')
 
@@ -572,6 +575,7 @@ class CompeticaoClubeStatsView(APIView):
         titulares_qs = Escalacao.objects.filter(
             jogador__clube=clube,
             partida__in=partidas_qs,
+            tipo='PADRAO',
             status='TITULAR'
         ).select_related('jogador', 'partida__mandante', 'partida__visitante')
 
@@ -784,15 +788,60 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
     queryset = Escalacao.objects.all()
     serializer_class = EscalacaoSerializer
     permission_classes = [IsAuthenticated]
+    TIPO_PADRAO = 'PADRAO'
+    TIPOS_VALIDOS = {'PADRAO', 'DEFENSIVA', 'OFENSIVA'}
+    TIPOS_VARIACAO = {'DEFENSIVA', 'OFENSIVA'}
+
+    def _normalize_tipo(self, raw_tipo):
+        tipo = (raw_tipo or self.TIPO_PADRAO).strip().upper()
+        if tipo not in self.TIPOS_VALIDOS:
+            raise ValidationError({'tipo': 'Tipo de escalação inválido. Use PADRAO, DEFENSIVA ou OFENSIVA.'})
+        return tipo
+
+    def _validate_tipo_com_padrao(self, partida, jogador, tipo):
+        if tipo not in self.TIPOS_VARIACAO:
+            return
+
+        jogadores_padrao_ids = set(
+            Escalacao.objects.filter(
+                partida=partida,
+                tipo=self.TIPO_PADRAO,
+            ).values_list('jogador_id', flat=True)
+        )
+
+        if not jogadores_padrao_ids:
+            raise ValidationError({
+                'tipo': (
+                    'A escalação padrão deve existir antes de criar '
+                    'a escalação defensiva ou ofensiva.'
+                )
+            })
+
+        if jogador and jogador.id not in jogadores_padrao_ids:
+            raise ValidationError({
+                'jogador': (
+                    'Nas escalações defensiva e ofensiva, só é permitido '
+                    'usar jogadores já presentes na escalação padrão.'
+                )
+            })
 
     def get_object(self):
         lookup = self.kwargs.get(self.lookup_field)
-        try:
-            partida_id, jogador_id = lookup.split(':', 1)
-        except ValueError:
+        lookup_parts = (lookup or '').split(':')
+
+        if len(lookup_parts) == 2:
+            partida_id, jogador_id = lookup_parts
+            tipo = self.TIPO_PADRAO
+        elif len(lookup_parts) == 3:
+            partida_id, jogador_id, tipo = lookup_parts
+            tipo = tipo.strip().upper()
+            if tipo not in self.TIPOS_VALIDOS:
+                raise Http404
+        else:
             raise Http404
+
         try:
-            obj = Escalacao.objects.get(partida_id=partida_id, jogador_id=jogador_id)
+            obj = Escalacao.objects.get(partida_id=partida_id, jogador_id=jogador_id, tipo=tipo)
         except Escalacao.DoesNotExist:
             raise Http404
 
@@ -820,12 +869,20 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
         partida = self.request.query_params.get('partida', None)
         if partida:
             queryset = queryset.filter(partida=partida)
+
+        tipo = self.request.query_params.get('tipo', None)
+        if tipo:
+            queryset = queryset.filter(tipo=self._normalize_tipo(tipo))
+        else:
+            queryset = queryset.filter(tipo=self.TIPO_PADRAO)
+
         return queryset
 
     def perform_create(self, serializer):
         user = self.request.user
         jogador = serializer.validated_data.get('jogador')
         partida = serializer.validated_data.get('partida')
+        tipo = self._normalize_tipo(serializer.validated_data.get('tipo'))
 
         if user.user_type == 'TREINADOR' and user.clube_id:
             if not jogador or jogador.clube_id != user.clube_id:
@@ -833,18 +890,26 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
             if not partida or (partida.mandante_id != user.clube_id and partida.visitante_id != user.clube_id):
                 raise PermissionDenied('Você só pode escalar em partidas do seu clube.')
 
-        serializer.save()
+        self._validate_tipo_com_padrao(partida, jogador, tipo)
+
+        serializer.save(tipo=tipo)
 
     def perform_update(self, serializer):
         user = self.request.user
         jogador = serializer.validated_data.get('jogador', serializer.instance.jogador)
         partida = serializer.validated_data.get('partida', serializer.instance.partida)
+        tipo = self._normalize_tipo(serializer.validated_data.get('tipo', serializer.instance.tipo))
+
+        if tipo != serializer.instance.tipo:
+            raise ValidationError({'tipo': 'Não é permitido alterar o tipo de uma escalação existente.'})
 
         if user.user_type == 'TREINADOR' and user.clube_id:
             if jogador.clube_id != user.clube_id:
                 raise PermissionDenied('Você não pode editar escalações de outro clube.')
             if partida.mandante_id != user.clube_id and partida.visitante_id != user.clube_id:
                 raise PermissionDenied('Você não pode editar escalações de partidas de outro clube.')
+
+        self._validate_tipo_com_padrao(partida, jogador, tipo)
 
         serializer.save()
     
@@ -857,6 +922,7 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
         return set(
             Escalacao.objects.filter(
                 partida=partida,
+                tipo='PADRAO',
                 status='TITULAR',
                 jogador__clube_id=clube_id,
             ).values_list('jogador_id', flat=True)
@@ -869,6 +935,7 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
         is_titular = Escalacao.objects.filter(
             partida=partida,
             jogador=jogador,
+            tipo='PADRAO',
             status='TITULAR',
         ).exists()
 
