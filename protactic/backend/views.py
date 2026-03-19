@@ -8,13 +8,19 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from django.http import Http404
 from rest_framework.exceptions import PermissionDenied, ValidationError
-from .models import Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
+from .models import User, Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
 from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer, TecnicoCreateSerializer
 from django.db.models import Q, F, Count, Case, When, IntegerField
 from django.db import transaction
 from django.utils import timezone
 from collections import defaultdict
 from .navigation import build_navigation_for_user
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.core.mail import send_mail
+from django.conf import settings
+from rest_framework.permissions import AllowAny
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -43,6 +49,68 @@ class LogoutView(APIView):
             return Response({'detail': 'Token de refresh não fornecido.'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PasswordResetRequestView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email')
+        if not email:
+            return Response({"detail": "E-mail é obrigatório."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(email=email)
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            
+            reset_link = f"{settings.FRONTEND_URL}/reset-password?uid={uid}&token={token}"
+            
+            subject = "Redefinição de Senha - Protactic"
+            message = f"Olá {user.username},\n\nVocê solicitou a redefinição de sua senha no Protactic. Clique no link abaixo para prosseguir:\n\n{reset_link}\n\nSe você não solicitou isso, ignore este e-mail."
+            
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
+            )
+            
+            return Response({"detail": "Link de redefinição enviado para o seu e-mail."}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            # Por segurança, mesmo que o usuário não exista, podemos retornar a mesma mensagem
+            # ou uma mensagem genérica para evitar enumeração de usuários.
+            return Response({"detail": "Se este e-mail estiver cadastrado, um link de redefinição será enviado."}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"detail": f"Erro ao enviar e-mail: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class PasswordResetConfirmView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        uid = request.data.get('uid')
+        token = request.data.get('token')
+        new_password = request.data.get('new_password')
+
+        if not all([uid, token, new_password]):
+            return Response({"detail": "Todos os campos (uid, token, nova senha) são obrigatórios."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            uid_decoded = force_str(urlsafe_base64_decode(uid))
+            user = User.objects.get(pk=uid_decoded)
+            
+            if default_token_generator.check_token(user, token):
+                user.set_password(new_password)
+                user.save()
+                return Response({"detail": "Senha alterada com sucesso!"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"detail": "Link inválido ou expirado."}, status=status.HTTP_400_BAD_REQUEST)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return Response({"detail": "Link inválido ou expirado."}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TecnicoCreateView(APIView):
