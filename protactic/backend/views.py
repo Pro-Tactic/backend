@@ -794,6 +794,172 @@ class BuscaGlobalView(APIView):
             resultados.append(item)
 
         return Response(resultados)
+
+
+class PrevisoesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def _serialize_match_for_club(self, partida, clube_id):
+        if partida.mandante_id == clube_id:
+            adversario = partida.visitante
+            local = 'CASA'
+        else:
+            adversario = partida.mandante
+            local = 'FORA'
+
+        return {
+            'id': partida.id,
+            'data_hora': partida.data_hora.isoformat(),
+            'adversario_id': adversario.id,
+            'adversario_nome': adversario.nome,
+            'local': local,
+            'competicao': partida.competicao.nome if partida.competicao else None,
+            'futuro': partida.data_hora >= timezone.now(),
+        }
+
+    def _lineup_for_tipo(self, partida, clube_id, tipo_desejado):
+        tipo_desejado = (tipo_desejado or 'PADRAO').strip().upper()
+
+        escalacoes = Escalacao.objects.filter(
+            partida=partida,
+            jogador__clube_id=clube_id,
+            status='TITULAR',
+            tipo=tipo_desejado,
+        ).select_related('jogador').order_by('jogador__posicao', 'jogador__nome')
+
+        tipo_efetivo = tipo_desejado
+        if not escalacoes.exists() and tipo_desejado != 'PADRAO':
+            escalacoes = Escalacao.objects.filter(
+                partida=partida,
+                jogador__clube_id=clube_id,
+                status='TITULAR',
+                tipo='PADRAO',
+            ).select_related('jogador').order_by('jogador__posicao', 'jogador__nome')
+            tipo_efetivo = 'PADRAO'
+
+        return {
+            'tipo_solicitado': tipo_desejado,
+            'tipo_efetivo': tipo_efetivo,
+            'jogadores': [
+                {
+                    'jogador_id': item.jogador_id,
+                    'nome': item.jogador.nome,
+                    'posicao': item.jogador.posicao,
+                    'x': item.x,
+                    'y': item.y,
+                }
+                for item in escalacoes
+            ]
+        }
+
+    def _build_comparison(self, meu_jogo, meu_clube_id, jogo_adversario, adversario_id):
+        if not meu_jogo or not jogo_adversario:
+            return None
+
+        ataque_vs_defesa = {
+            'meu_time': self._lineup_for_tipo(meu_jogo, meu_clube_id, 'OFENSIVA'),
+            'adversario': self._lineup_for_tipo(jogo_adversario, adversario_id, 'DEFENSIVA'),
+        }
+
+        defesa_vs_ataque = {
+            'meu_time': self._lineup_for_tipo(meu_jogo, meu_clube_id, 'DEFENSIVA'),
+            'adversario': self._lineup_for_tipo(jogo_adversario, adversario_id, 'OFENSIVA'),
+        }
+
+        return {
+            'ataque_vs_defesa': ataque_vs_defesa,
+            'defesa_vs_ataque': defesa_vs_ataque,
+            'insights': {
+                'status': 'PENDENTE',
+                'mensagem': 'Bloco de insights reservado para implementação futura.'
+            }
+        }
+
+    def get(self, request):
+        user = request.user
+        if user.user_type != 'TREINADOR' or not user.clube_id:
+            return Response(
+                {'detail': 'Recurso disponível apenas para treinador com clube associado.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        meu_clube = user.clube
+        meu_jogo_id = request.query_params.get('meu_jogo_id')
+        adversario_id = request.query_params.get('adversario_id')
+        jogo_adversario_id = request.query_params.get('jogo_adversario_id')
+
+        meus_jogos_qs = Partida.objects.filter(
+            Q(mandante_id=meu_clube.id) | Q(visitante_id=meu_clube.id)
+        ).select_related('mandante', 'visitante', 'competicao').order_by('-data_hora')
+
+        meus_jogos = [
+            self._serialize_match_for_club(partida, meu_clube.id)
+            for partida in meus_jogos_qs
+        ]
+
+        adversarios_qs = Clube.objects.filter(
+            Q(partidas_mandante__visitante_id=meu_clube.id) |
+            Q(partidas_visitante__mandante_id=meu_clube.id)
+        ).exclude(id=meu_clube.id).distinct().order_by('nome')
+
+        adversarios = [
+            {
+                'id': clube.id,
+                'nome': clube.nome,
+                'escudo': request.build_absolute_uri(clube.escudo.url) if clube.escudo else None,
+            }
+            for clube in adversarios_qs
+        ]
+
+        jogos_adversario_qs = Partida.objects.none()
+        if adversario_id:
+            jogos_adversario_qs = Partida.objects.filter(
+                Q(mandante_id=adversario_id) | Q(visitante_id=adversario_id),
+                data_hora__lt=timezone.now(),
+            ).select_related('mandante', 'visitante', 'competicao').order_by('-data_hora')
+
+        jogos_adversario = [
+            self._serialize_match_for_club(partida, adversario_id)
+            for partida in jogos_adversario_qs
+        ]
+
+        meu_jogo = None
+        if meu_jogo_id:
+            meu_jogo = meus_jogos_qs.filter(id=meu_jogo_id).first()
+            if not meu_jogo:
+                raise ValidationError({'meu_jogo_id': 'Partida do seu clube não encontrada.'})
+
+        jogo_adversario = None
+        if jogo_adversario_id:
+            if not adversario_id:
+                raise ValidationError({'adversario_id': 'Informe o adversário antes de escolher o jogo.'})
+
+            jogo_adversario = jogos_adversario_qs.filter(id=jogo_adversario_id).first()
+            if not jogo_adversario:
+                raise ValidationError({
+                    'jogo_adversario_id': (
+                        'Jogo adversário inválido. Só é permitido usar partidas antigas do adversário selecionado.'
+                    )
+                })
+
+        comparativo = self._build_comparison(meu_jogo, meu_clube.id, jogo_adversario, adversario_id)
+
+        return Response({
+            'meu_clube': {
+                'id': meu_clube.id,
+                'nome': meu_clube.nome,
+                'escudo': request.build_absolute_uri(meu_clube.escudo.url) if meu_clube.escudo else None,
+            },
+            'filtros': {
+                'meu_jogo_id': meu_jogo_id,
+                'adversario_id': adversario_id,
+                'jogo_adversario_id': jogo_adversario_id,
+            },
+            'meus_jogos': meus_jogos,
+            'adversarios': adversarios,
+            'jogos_adversario': jogos_adversario,
+            'comparativo': comparativo,
+        })
     
 
 class PartidaViewSet(viewsets.ModelViewSet):
