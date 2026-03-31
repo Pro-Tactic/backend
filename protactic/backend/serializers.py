@@ -72,7 +72,6 @@ class JogadorSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def validate_nome(self, value):
-        # Verifica se já existe um jogador com este nome (excluindo o próprio em caso de update)
         queryset = Jogador.objects.filter(nome__iexact=value)
         if self.instance:
             queryset = queryset.exclude(pk=self.instance.pk)
@@ -88,7 +87,6 @@ class CompeticaoSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def validate_nome(self, value):
-        # Verifica se já existe uma competição com este nome (excluindo a própria em caso de update)
         queryset = Competicao.objects.filter(nome__iexact=value)
         if self.instance:
             queryset = queryset.exclude(pk=self.instance.pk)
@@ -161,14 +159,38 @@ class PartidaSerializer(serializers.ModelSerializer):
 from .models import Escalacao
 
 class EscalacaoSerializer(serializers.ModelSerializer):
+    GOLEIRO_LINHA_Y_MIN = 90.0
     id = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Escalacao
-        fields = ['id', 'partida', 'jogador', 'status', 'x', 'y']
+        fields = ['id', 'partida', 'jogador', 'tipo', 'status', 'x', 'y']
 
     def get_id(self, obj):
-        return f"{obj.partida_id}:{obj.jogador_id}"
+        return f"{obj.partida_id}:{obj.jogador_id}:{obj.tipo}"
+
+    def validate(self, data):
+        jogador = data.get('jogador', getattr(self.instance, 'jogador', None))
+        status = data.get('status', getattr(self.instance, 'status', None))
+        y = data.get('y', getattr(self.instance, 'y', None))
+
+        if not jogador or status != 'TITULAR' or y is None:
+            return data
+
+        is_goleiro = (jogador.posicao or '').strip() == 'Goleiro'
+        esta_na_linha_do_goleiro = float(y) >= self.GOLEIRO_LINHA_Y_MIN
+
+        if not is_goleiro and esta_na_linha_do_goleiro:
+            raise serializers.ValidationError({
+                'y': 'A linha do goleiro permite apenas jogadores da posição Goleiro.'
+            })
+
+        if is_goleiro and not esta_na_linha_do_goleiro:
+            raise serializers.ValidationError({
+                'y': 'O goleiro deve ser posicionado na linha do goleiro.'
+            })
+
+        return data
 
 from .models import Desempenho
 
@@ -179,7 +201,22 @@ class DesempenhoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Desempenho
-        fields = ['id', 'partida', 'jogador', 'nome_jogador', 'posicao_jogador', 'nota', 'gols', 'assistencias']
+        fields = ['id', 'partida', 'jogador', 'nome_jogador', 'posicao_jogador', 'nota', 'gols', 'gols_contra', 'assistencias']
 
     def get_id(self, obj):
         return f"{obj.partida_id}:{obj.jogador_id}"
+
+    def validate_gols(self, value):
+        if value < 0:
+            raise serializers.ValidationError('Gols nao pode ser negativo.')
+        return value
+
+    def validate_gols_contra(self, value):
+        if value < 0:
+            raise serializers.ValidationError('Gols contra nao pode ser negativo.')
+        return value
+
+    def validate_assistencias(self, value):
+        if value < 0:
+            raise serializers.ValidationError('Assistencias nao pode ser negativo.')
+        return value

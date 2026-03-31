@@ -1,0 +1,2877 @@
+{
+    "get": "players",
+    "parameters": {
+        "team": "133",
+        "season": "2024"
+    },
+    "errors": [],
+    "results": 20,
+    "paging": {
+        "current": 1,
+        "total": 5
+    },
+    "response": [
+        {
+            "player": {
+                "id": 9692,
+                "name": "Ivan",
+                "firstname": "Ivan",
+                "lastname": "Quaresma da Silva",
+                "age": 28,
+                "birth": {
+                    "date": "1997-02-07",
+                    "place": "Rio das Pedras",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "192",
+                "weight": "86",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/9692.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 10115,
+                "name": "Robson Bambu",
+                "firstname": "Robson",
+                "lastname": "Alves de Barros",
+                "age": 28,
+                "birth": {
+                    "date": "1997-11-12",
+                    "place": "Santos",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "185",
+                "weight": "69",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/10115.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 10349,
+                "name": "Jefferson",
+                "firstname": "Jefferson Junio",
+                "lastname": "Antônio da Silva",
+                "age": 28,
+                "birth": {
+                    "date": "1997-01-03",
+                    "place": "Jaraguá",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "176",
+                "weight": "79",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/10349.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 10427,
+                "name": "Gabriel Dias",
+                "firstname": "Gabriel",
+                "lastname": "Dias de Oliveira",
+                "age": 31,
+                "birth": {
+                    "date": "1994-05-10",
+                    "place": "Francisco Morato",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "183 cm",
+                "weight": "79 kg",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/10427.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 12797,
+                "name": "Alex Teixeira",
+                "firstname": "Alex",
+                "lastname": "Teixeira Santos",
+                "age": 36,
+                "birth": {
+                    "date": "1990-01-06",
+                    "place": "Duque de Caxias",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "173",
+                "weight": "69",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/12797.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Forward",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 7,
+                        "lineups": 5,
+                        "minutes": 245,
+                        "number": null,
+                        "position": "Forward",
+                        "rating": "7.014285",
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 2,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": 7,
+                        "on": 4
+                    },
+                    "goals": {
+                        "total": 1,
+                        "conceded": 0,
+                        "assists": 1,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": 97,
+                        "key": 2,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": 2,
+                        "blocks": null,
+                        "interceptions": 1
+                    },
+                    "duels": {
+                        "total": 27,
+                        "won": 19
+                    },
+                    "dribbles": {
+                        "attempts": 6,
+                        "success": 4,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": 8,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": null,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 73,
+                        "name": "Copa Do Brasil",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/73.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 2,
+                        "lineups": 2,
+                        "minutes": 33,
+                        "number": null,
+                        "position": "Forward",
+                        "rating": "6.700000",
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": 0,
+                        "assists": 0,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": 10,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": 1,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": 5,
+                        "won": 3
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": 1,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": null,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 35954,
+                "name": "S. Ferreira",
+                "firstname": "Carlos Sebastián",
+                "lastname": "Ferreira Vidal",
+                "age": 27,
+                "birth": {
+                    "date": "1998-02-13",
+                    "place": "Asunción",
+                    "country": "Paraguay"
+                },
+                "nationality": "Paraguay",
+                "height": "181",
+                "weight": "70",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/35954.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 162745,
+                "name": "F. Galeazzi",
+                "firstname": "Felipe Estrella",
+                "lastname": "Galeazzi",
+                "age": 23,
+                "birth": {
+                    "date": "2001-01-10",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Italy",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/162745.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 197032,
+                "name": "Riquelme",
+                "firstname": "Riquelme",
+                "lastname": "de Carvalho Araújo Viana",
+                "age": 23,
+                "birth": {
+                    "date": "2002-08-28",
+                    "place": "Barra Mansa",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "173",
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/197032.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 305823,
+                "name": "Cadu",
+                "firstname": "Carlos Eduardo",
+                "lastname": "Piekny Neves",
+                "age": 22,
+                "birth": {
+                    "date": "2003-03-25",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/305823.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 305829,
+                "name": "Rodrigo",
+                "firstname": "Rodrigo",
+                "lastname": "Alves de Holanda Santos",
+                "age": 23,
+                "birth": {
+                    "date": "2002-06-04",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "176 cm",
+                "weight": "70 kg",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/305829.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 2,
+                        "lineups": 2,
+                        "minutes": 162,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 2,
+                        "bench": 0
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 305837,
+                "name": "Figueiredo",
+                "firstname": "Lucas",
+                "lastname": "Figueiredo dos Santos",
+                "age": 24,
+                "birth": {
+                    "date": "2001-08-14",
+                    "place": "Niterói",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/305837.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 352387,
+                "name": "Zé Vitor",
+                "firstname": "José Vitor",
+                "lastname": "Geminiano Cavalieri",
+                "age": 23,
+                "birth": {
+                    "date": "2002-06-10",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/352387.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 2,
+                        "lineups": 2,
+                        "minutes": 180,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 0
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 369890,
+                "name": "Léo Jacó",
+                "firstname": "Leonardo",
+                "lastname": "Gomes da Silva Jacó",
+                "age": 20,
+                "birth": {
+                    "date": "2005-04-06",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/369890.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 2,
+                        "lineups": 2,
+                        "minutes": 20,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": "6.700000",
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": 0,
+                        "assists": 0,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": 1,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": 2,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": 8,
+                        "won": 3
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": 1,
+                        "committed": 4
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": null,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 403307,
+                "name": "Julião",
+                "firstname": "Matheus Gabriel",
+                "lastname": "Julião Damasceno",
+                "age": 22,
+                "birth": {
+                    "date": "2003-04-10",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "178 cm",
+                "weight": "69 kg",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/403307.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 2,
+                        "lineups": 2,
+                        "minutes": 136,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 1,
+                        "bench": 1
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 404752,
+                "name": "GB",
+                "firstname": "Gabriel",
+                "lastname": "Souza da Silva",
+                "age": 20,
+                "birth": {
+                    "date": "2005-01-05",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/404752.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 8,
+                        "lineups": 6,
+                        "minutes": 91,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": "7.000000",
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 2,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": 2,
+                        "on": 1
+                    },
+                    "goals": {
+                        "total": 1,
+                        "conceded": 0,
+                        "assists": 0,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": 24,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": 4,
+                        "blocks": null,
+                        "interceptions": 1
+                    },
+                    "duels": {
+                        "total": 21,
+                        "won": 10
+                    },
+                    "dribbles": {
+                        "attempts": 4,
+                        "success": 1,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": 3,
+                        "committed": 2
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": null,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 73,
+                        "name": "Copa Do Brasil",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/73.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 4,
+                        "lineups": 2,
+                        "minutes": 37,
+                        "number": null,
+                        "position": "Attacker",
+                        "rating": "6.300000",
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 2,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": 0,
+                        "assists": 0,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": 4,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": 7,
+                        "won": 2
+                    },
+                    "dribbles": {
+                        "attempts": 1,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": 2,
+                        "committed": 1
+                    },
+                    "cards": {
+                        "yellow": 1,
+                        "yellowred": null,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": 0,
+                        "missed": 0,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 404756,
+                "name": "Roger",
+                "firstname": "Roger Felippo",
+                "lastname": "Floriano Espindola",
+                "age": 21,
+                "birth": {
+                    "date": "2004-02-18",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/404756.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 2
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 414351,
+                "name": "Matheus Gomes",
+                "firstname": "Matheus",
+                "lastname": "Gomes",
+                "age": 19,
+                "birth": {
+                    "date": "2006-02-22",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "180",
+                "weight": "78",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/414351.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 1
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 454137,
+                "name": "Allan",
+                "firstname": "Allan Vitor",
+                "lastname": "Silva de Barros",
+                "age": 21,
+                "birth": {
+                    "date": "2004-01-08",
+                    "place": "Rio de Janeiro",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "185",
+                "weight": "73",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/454137.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Goalkeeper",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 0
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 454452,
+                "name": "Victão",
+                "firstname": "Victor",
+                "lastname": "Araújo de Alencar Oliveira",
+                "age": 21,
+                "birth": {
+                    "date": "2004-02-11",
+                    "place": "Rio de Janeiro",
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": "190",
+                "weight": "80",
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/454452.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 2,
+                        "lineups": 0,
+                        "minutes": 7,
+                        "number": null,
+                        "position": "Defender",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 2,
+                        "out": 0,
+                        "bench": 2
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        },
+        {
+            "player": {
+                "id": 454458,
+                "name": "Lukas Zuccarello",
+                "firstname": "Lukas",
+                "lastname": "Rocha Zuccarello",
+                "age": 19,
+                "birth": {
+                    "date": "2006-12-02",
+                    "place": null,
+                    "country": "Brazil"
+                },
+                "nationality": "Brazil",
+                "height": null,
+                "weight": null,
+                "injured": false,
+                "photo": "https://media.api-sports.io/football/players/454458.png"
+            },
+            "statistics": [
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 71,
+                        "name": "Serie A",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/71.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": null,
+                        "lineups": null,
+                        "minutes": null,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": null,
+                        "out": null,
+                        "bench": null
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": null,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": null,
+                        "yellowred": null,
+                        "red": null
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                },
+                {
+                    "team": {
+                        "id": 133,
+                        "name": "Vasco DA Gama",
+                        "logo": "https://media.api-sports.io/football/teams/133.png"
+                    },
+                    "league": {
+                        "id": 624,
+                        "name": "Carioca - 1",
+                        "country": "Brazil",
+                        "logo": "https://media.api-sports.io/football/leagues/624.png",
+                        "flag": "https://media.api-sports.io/flags/br.svg",
+                        "season": 2024
+                    },
+                    "games": {
+                        "appearences": 0,
+                        "lineups": 0,
+                        "minutes": 0,
+                        "number": null,
+                        "position": "Midfielder",
+                        "rating": null,
+                        "captain": false
+                    },
+                    "substitutes": {
+                        "in": 0,
+                        "out": 0,
+                        "bench": 2
+                    },
+                    "shots": {
+                        "total": null,
+                        "on": null
+                    },
+                    "goals": {
+                        "total": 0,
+                        "conceded": null,
+                        "assists": null,
+                        "saves": null
+                    },
+                    "passes": {
+                        "total": null,
+                        "key": null,
+                        "accuracy": null
+                    },
+                    "tackles": {
+                        "total": null,
+                        "blocks": null,
+                        "interceptions": null
+                    },
+                    "duels": {
+                        "total": null,
+                        "won": null
+                    },
+                    "dribbles": {
+                        "attempts": null,
+                        "success": null,
+                        "past": null
+                    },
+                    "fouls": {
+                        "drawn": null,
+                        "committed": null
+                    },
+                    "cards": {
+                        "yellow": 0,
+                        "yellowred": 0,
+                        "red": 0
+                    },
+                    "penalty": {
+                        "won": null,
+                        "commited": null,
+                        "scored": null,
+                        "missed": null,
+                        "saved": null
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -52,6 +52,12 @@ class Clube(models.Model):
     pais = models.CharField(max_length=100, db_column='pais_clube')
     data_criacao = models.DateField(blank=True, null=True, db_column='data_fundacao_clube')
     escudo = models.ImageField(upload_to='escudos/', blank=True, null=True, db_column='escudo_clube')
+    competicoes = models.ManyToManyField(
+        'Competicao',
+        related_name='clubes_inscritos',
+        blank=True,
+        db_table='clube_competicao'
+    )
 
     class Meta:
         db_table = 'clube'
@@ -153,26 +159,33 @@ class Escalacao(models.Model):
         ('TITULAR', 'Titular'),
         ('RESERVA', 'Reserva'),
     )
+    TIPO_CHOICES = (
+        ('PADRAO', 'Padrão'),
+        ('DEFENSIVA', 'Defensiva'),
+        ('OFENSIVA', 'Ofensiva'),
+    )
 
     partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='escalacoes', db_column='id_partida')
     jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE, related_name='escalacoes', db_column='id_jogador')
+    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, default='PADRAO', db_column='tipo_escalacao')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, db_column='status_escalacao')
     
     # Coordenadas (porcentagem 0-100)
     x = models.FloatField(null=True, blank=True, db_column='coord_x_escalacao')
     y = models.FloatField(null=True, blank=True, db_column='coord_y_escalacao')
-    pk = models.CompositePrimaryKey('partida', 'jogador')
+    pk = models.CompositePrimaryKey('partida', 'jogador', 'tipo')
     
     class Meta:
         db_table = 'escalacao'
 
     def __str__(self):
-        return f"{self.jogador.nome} - {self.status} ({self.partida})"
+        return f"{self.jogador.nome} - {self.status} [{self.tipo}] ({self.partida})"
 
 class Desempenho(models.Model):
     partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='desempenhos', db_column='id_partida')
     jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE, related_name='desempenhos', db_column='id_jogador')
     gols = models.IntegerField(default=0, db_column='gol_desempenho')
+    gols_contra = models.IntegerField(default=0, db_column='gol_contra_desempenho')
     assistencias = models.IntegerField(default=0, db_column='assistencia_desempenho')
     nota = models.DecimalField(max_digits=4, decimal_places=2, default=0, db_column='nota_desempenho')
     cartao_amarelo = models.IntegerField(default=0, db_column='cartao_amarelo_desempenho')
