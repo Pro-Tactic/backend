@@ -7,7 +7,8 @@ from .views import (
     EscalacaoViewSet, DesempenhoViewSet, 
     ClubeDashboardView, CompeticaoTimesView, 
     CompeticaoClubeStatsView, TecnicoCreateView, 
-    PasswordResetRequestView, PasswordResetConfirmView
+    PasswordResetRequestView, PasswordResetConfirmView,
+    PrevisoesView,
 )
 
 router = DefaultRouter()
@@ -27,6 +28,7 @@ urlpatterns = [
     path('password-reset-confirm/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path("navigation/", NavigationView.as_view(), name="navigation"),
     path("inicio/", CoachHomeView.as_view(), name="coach_home"),
+    path("previsoes/", PrevisoesView.as_view(), name="previsoes"),
     path('competicoes/<str:pk>/times/', CompeticaoTimesView.as_view(), name='competicao_times'),
     path('competicoes/<str:competicao_id>/clubes/<str:clube_id>/estatisticas/', CompeticaoClubeStatsView.as_view(), name='competicao_clube_stats'),
     path('', include(router.urls)),
