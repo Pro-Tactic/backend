@@ -8,7 +8,7 @@ from .views import (
     ClubeDashboardView, CompeticaoTimesView, 
     CompeticaoClubeStatsView, TecnicoCreateView, 
     PasswordResetRequestView, PasswordResetConfirmView,
-    PrevisoesView,
+    PrevisoesView, PrevisoesMetadataView, PrevisoesComparativoView,
 )
 
 router = DefaultRouter()
@@ -29,6 +29,8 @@ urlpatterns = [
     path("navigation/", NavigationView.as_view(), name="navigation"),
     path("inicio/", CoachHomeView.as_view(), name="coach_home"),
     path("previsoes/", PrevisoesView.as_view(), name="previsoes"),
+    path("previsoes/metadata/", PrevisoesMetadataView.as_view(), name="previsoes_metadata"),
+    path("previsoes/comparativo/", PrevisoesComparativoView.as_view(), name="previsoes_comparativo"),
     path('competicoes/<str:pk>/times/', CompeticaoTimesView.as_view(), name='competicao_times'),
     path('competicoes/<str:competicao_id>/clubes/<str:clube_id>/estatisticas/', CompeticaoClubeStatsView.as_view(), name='competicao_clube_stats'),
     path('', include(router.urls)),
