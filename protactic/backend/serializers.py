@@ -156,6 +156,26 @@ class PartidaSerializer(serializers.ModelSerializer):
         
         return data
 
+
+class PartidaListSerializer(serializers.ModelSerializer):
+    nome_mandante = serializers.ReadOnlyField(source='mandante.nome')
+    nome_visitante = serializers.ReadOnlyField(source='visitante.nome')
+
+    class Meta:
+        model = Partida
+        fields = [
+            'id',
+            'competicao',
+            'mandante',
+            'visitante',
+            'data_hora',
+            'local',
+            'placar_mandante',
+            'placar_visitante',
+            'nome_mandante',
+            'nome_visitante',
+        ]
+
 from .models import Escalacao
 
 class EscalacaoSerializer(serializers.ModelSerializer):

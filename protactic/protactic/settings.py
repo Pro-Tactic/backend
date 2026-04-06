@@ -76,7 +76,9 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "anon": "100/day",
         "user": "1000/day"
-    }
+    },
+    "DEFAULT_PAGINATION_CLASS": "backend.pagination.DefaultPagination",
+    "PAGE_SIZE": 20,
 }
 
 from datetime import timedelta

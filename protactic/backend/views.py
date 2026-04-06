@@ -9,7 +9,7 @@ from rest_framework.decorators import action
 from django.http import Http404
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from .models import User, Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
-from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, GolSerializer, EscalacaoSerializer, TecnicoCreateSerializer
+from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, PartidaListSerializer, GolSerializer, EscalacaoSerializer, TecnicoCreateSerializer
 from django.db.models import Q, F, Count, Case, When, IntegerField
 from django.db import transaction
 from django.utils import timezone
@@ -21,6 +21,19 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.permissions import AllowAny
+from .pagination import ClubePagination, JogadorPagination, PartidaPagination
+from django.core.cache import cache
+
+
+CACHE_TTL_DASHBOARD = 60
+CACHE_TTL_PREVISOES = 45
+
+
+def build_cache_key(prefix, *parts):
+    normalized = [prefix]
+    for part in parts:
+        normalized.append(str(part).strip().replace(' ', '_'))
+    return ':'.join(normalized)
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -164,6 +177,10 @@ class CoachHomeView(APIView):
             }, status=403)
 
         clube = user.clube
+        cache_key = build_cache_key('coach_home', request.get_host(), user.id, clube.id)
+        cached_payload = cache.get(cache_key)
+        if cached_payload is not None:
+            return Response(cached_payload)
 
         stats = Partida.objects.filter(
             Q(mandante=clube) | Q(visitante=clube)
@@ -260,7 +277,7 @@ class CoachHomeView(APIView):
                 "estadio": proxima_partida.local,
             }
 
-        return Response({
+        payload = {
             "clube": {
                 "id": clube.id,
                 "nome": clube.nome,
@@ -278,12 +295,16 @@ class CoachHomeView(APIView):
             "proximo_jogo": proximo_jogo_data,
             "provavel_escalacao": provavel_escalacao,
             "origem_escalacao": origem_escalacao,
-        })
+        }
+
+        cache.set(cache_key, payload, CACHE_TTL_DASHBOARD)
+        return Response(payload)
 
 class ClubeViewSet(viewsets.ModelViewSet):
-    queryset = Clube.objects.all()
+    queryset = Clube.objects.all().order_by('nome')
     serializer_class = ClubeSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = ClubePagination
 
 class ClubeDashboardView(APIView):
     permission_classes = [IsAuthenticated]
@@ -295,6 +316,10 @@ class ClubeDashboardView(APIView):
             return Response({"error": "Clube não encontrado"}, status=404)
 
         ultimos_jogos_param = (request.query_params.get('ultimos_jogos') or '5').strip().lower()
+        cache_key = build_cache_key('clube_dashboard', request.get_host(), pk, ultimos_jogos_param)
+        cached_payload = cache.get(cache_key)
+        if cached_payload is not None:
+            return Response(cached_payload)
 
         stats = Partida.objects.filter(Q(mandante=clube) | Q(visitante=clube)).aggregate(
             total=Count('id'),
@@ -465,7 +490,7 @@ class ClubeDashboardView(APIView):
         escalacao_mais_usada = todas_escalacoes[0] if todas_escalacoes else None
 
         # 5. Resposta Final Estruturada
-        return Response({
+        payload = {
             "perfil": {
                 "nome": clube.nome,
                 "pais": clube.pais,
@@ -505,17 +530,21 @@ class ClubeDashboardView(APIView):
             "escalacao_mais_usada": escalacao_mais_usada,
             "todas_escalacoes": todas_escalacoes,
             "formacoes_partida": formacoes_partida,
-        })
+        }
+
+        cache.set(cache_key, payload, CACHE_TTL_DASHBOARD)
+        return Response(payload)
 
 class JogadorViewSet(viewsets.ModelViewSet):
     serializer_class = JogadorSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = JogadorPagination
 
     def get_queryset(self):
         user = self.request.user
         if user.user_type == 'TREINADOR' and user.clube:
-            return Jogador.objects.filter(clube=user.clube)
-        return Jogador.objects.all()
+            return Jogador.objects.filter(clube=user.clube).select_related('clube').order_by('nome')
+        return Jogador.objects.all().select_related('clube').order_by('nome')
 
 
 class CompeticaoViewSet(viewsets.ModelViewSet):
@@ -559,6 +588,16 @@ class CompeticaoClubeStatsView(APIView):
 
     def get(self, request, competicao_id, clube_id):
         ultimos_jogos_param = (request.query_params.get('ultimos_jogos') or '5').strip().lower()
+        cache_key = build_cache_key(
+            'competicao_clube_stats',
+            request.get_host(),
+            competicao_id,
+            clube_id,
+            ultimos_jogos_param,
+        )
+        cached_payload = cache.get(cache_key)
+        if cached_payload is not None:
+            return Response(cached_payload)
 
         try:
             competicao = Competicao.objects.get(pk=competicao_id)
@@ -724,7 +763,7 @@ class CompeticaoClubeStatsView(APIView):
                 "resultado": resultado,
             })
 
-        return Response({
+        payload = {
             "competicao": {"id": competicao.id, "nome": competicao.nome},
             "clube": {
                 "id": clube.id,
@@ -762,7 +801,10 @@ class CompeticaoClubeStatsView(APIView):
             "escalacao_mais_usada": escalacao_mais_usada,
             "todas_escalacoes": todas_escalacoes,
             "formacoes_partida": formacoes_partida,
-        })
+        }
+
+        cache.set(cache_key, payload, CACHE_TTL_DASHBOARD)
+        return Response(payload)
 
 class BuscaGlobalView(APIView):
     permission_classes = [IsAuthenticated]
@@ -817,28 +859,9 @@ class PrevisoesView(APIView):
             'futuro': partida.data_hora >= timezone.now(),
         }
 
-    def _lineup_for_tipo(self, partida, clube_id, tipo_desejado):
-        tipo_desejado = (tipo_desejado or 'PADRAO').strip().upper()
-
-        escalacoes = Escalacao.objects.filter(
-            partida=partida,
-            jogador__clube_id=clube_id,
-            status='TITULAR',
-            tipo=tipo_desejado,
-        ).select_related('jogador').order_by('jogador__posicao', 'jogador__nome')
-
-        tipo_efetivo = tipo_desejado
-        if not escalacoes.exists() and tipo_desejado != 'PADRAO':
-            escalacoes = Escalacao.objects.filter(
-                partida=partida,
-                jogador__clube_id=clube_id,
-                status='TITULAR',
-                tipo='PADRAO',
-            ).select_related('jogador').order_by('jogador__posicao', 'jogador__nome')
-            tipo_efetivo = 'PADRAO'
-
+    def _serialize_lineup(self, escalacoes, tipo_solicitado, tipo_efetivo):
         return {
-            'tipo_solicitado': tipo_desejado,
+            'tipo_solicitado': tipo_solicitado,
             'tipo_efetivo': tipo_efetivo,
             'jogadores': [
                 {
@@ -852,18 +875,45 @@ class PrevisoesView(APIView):
             ]
         }
 
+    def _lineups_by_tipo(self, partida, clube_id):
+        escalacoes = Escalacao.objects.filter(
+            partida=partida,
+            jogador__clube_id=clube_id,
+            status='TITULAR',
+        ).select_related('jogador').order_by('jogador__posicao', 'jogador__nome')
+
+        grouped = defaultdict(list)
+        for item in escalacoes:
+            grouped[item.tipo].append(item)
+
+        return grouped
+
+    def _resolve_tipo(self, lineups_by_tipo, tipo_desejado):
+        tipo_desejado = (tipo_desejado or 'PADRAO').strip().upper()
+        escalacoes = lineups_by_tipo.get(tipo_desejado, [])
+        tipo_efetivo = tipo_desejado
+
+        if not escalacoes and tipo_desejado != 'PADRAO':
+            escalacoes = lineups_by_tipo.get('PADRAO', [])
+            tipo_efetivo = 'PADRAO'
+
+        return self._serialize_lineup(escalacoes, tipo_desejado, tipo_efetivo)
+
     def _build_comparison(self, meu_jogo, meu_clube_id, jogo_adversario, adversario_id):
         if not meu_jogo or not jogo_adversario:
             return None
 
+        meu_time_lineups = self._lineups_by_tipo(meu_jogo, meu_clube_id)
+        adversario_lineups = self._lineups_by_tipo(jogo_adversario, adversario_id)
+
         ataque_vs_defesa = {
-            'meu_time': self._lineup_for_tipo(meu_jogo, meu_clube_id, 'OFENSIVA'),
-            'adversario': self._lineup_for_tipo(jogo_adversario, adversario_id, 'DEFENSIVA'),
+            'meu_time': self._resolve_tipo(meu_time_lineups, 'OFENSIVA'),
+            'adversario': self._resolve_tipo(adversario_lineups, 'DEFENSIVA'),
         }
 
         defesa_vs_ataque = {
-            'meu_time': self._lineup_for_tipo(meu_jogo, meu_clube_id, 'DEFENSIVA'),
-            'adversario': self._lineup_for_tipo(jogo_adversario, adversario_id, 'OFENSIVA'),
+            'meu_time': self._resolve_tipo(meu_time_lineups, 'DEFENSIVA'),
+            'adversario': self._resolve_tipo(adversario_lineups, 'OFENSIVA'),
         }
 
         return {
@@ -875,18 +925,17 @@ class PrevisoesView(APIView):
             }
         }
 
-    def get(self, request):
-        user = request.user
-        if user.user_type != 'TREINADOR' or not user.clube_id:
-            return Response(
-                {'detail': 'Recurso disponível apenas para treinador com clube associado.'},
-                status=status.HTTP_403_FORBIDDEN,
-            )
-
-        meu_clube = user.clube
-        meu_jogo_id = request.query_params.get('meu_jogo_id')
-        adversario_id = request.query_params.get('adversario_id')
-        jogo_adversario_id = request.query_params.get('jogo_adversario_id')
+    def _build_metadata_payload(self, request, meu_clube, adversario_id=None):
+        cache_key = build_cache_key(
+            'previsoes_metadata',
+            request.get_host(),
+            request.user.id,
+            meu_clube.id,
+            adversario_id or 'none',
+        )
+        cached_payload = cache.get(cache_key)
+        if cached_payload is not None:
+            return cached_payload
 
         meus_jogos_qs = Partida.objects.filter(
             Q(mandante_id=meu_clube.id) | Q(visitante_id=meu_clube.id)
@@ -911,70 +960,186 @@ class PrevisoesView(APIView):
             for clube in adversarios_qs
         ]
 
-        jogos_adversario_qs = Partida.objects.none()
+        jogos_adversario = []
         if adversario_id:
             jogos_adversario_qs = Partida.objects.filter(
                 Q(mandante_id=adversario_id) | Q(visitante_id=adversario_id),
                 data_hora__lt=timezone.now(),
             ).select_related('mandante', 'visitante', 'competicao').order_by('-data_hora')
 
-        jogos_adversario = [
-            self._serialize_match_for_club(partida, adversario_id)
-            for partida in jogos_adversario_qs
-        ]
+            jogos_adversario = [
+                self._serialize_match_for_club(partida, adversario_id)
+                for partida in jogos_adversario_qs
+            ]
 
-        meu_jogo = None
-        if meu_jogo_id:
-            meu_jogo = meus_jogos_qs.filter(id=meu_jogo_id).first()
-            if not meu_jogo:
-                raise ValidationError({'meu_jogo_id': 'Partida do seu clube não encontrada.'})
-
-        jogo_adversario = None
-        if jogo_adversario_id:
-            if not adversario_id:
-                raise ValidationError({'adversario_id': 'Informe o adversário antes de escolher o jogo.'})
-
-            jogo_adversario = jogos_adversario_qs.filter(id=jogo_adversario_id).first()
-            if not jogo_adversario:
-                raise ValidationError({
-                    'jogo_adversario_id': (
-                        'Jogo adversário inválido. Só é permitido usar partidas antigas do adversário selecionado.'
-                    )
-                })
-
-        comparativo = self._build_comparison(meu_jogo, meu_clube.id, jogo_adversario, adversario_id)
-
-        return Response({
+        payload = {
             'meu_clube': {
                 'id': meu_clube.id,
                 'nome': meu_clube.nome,
                 'escudo': request.build_absolute_uri(meu_clube.escudo.url) if meu_clube.escudo else None,
             },
+            'meus_jogos': meus_jogos,
+            'adversarios': adversarios,
+            'jogos_adversario': jogos_adversario,
+        }
+
+        cache.set(cache_key, payload, CACHE_TTL_PREVISOES)
+        return payload
+
+    def _build_comparativo_payload(self, request, meu_clube, meu_jogo_id, adversario_id, jogo_adversario_id):
+        if not all([meu_jogo_id, adversario_id, jogo_adversario_id]):
+            raise ValidationError({
+                'detail': 'Informe meu_jogo_id, adversario_id e jogo_adversario_id para gerar o comparativo.'
+            })
+
+        cache_key = build_cache_key(
+            'previsoes_comparativo',
+            request.get_host(),
+            request.user.id,
+            meu_clube.id,
+            meu_jogo_id,
+            adversario_id,
+            jogo_adversario_id,
+        )
+        cached_payload = cache.get(cache_key)
+        if cached_payload is not None:
+            return cached_payload
+
+        meu_jogo = Partida.objects.filter(
+            id=meu_jogo_id,
+        ).filter(
+            Q(mandante_id=meu_clube.id) | Q(visitante_id=meu_clube.id)
+        ).select_related('mandante', 'visitante', 'competicao').first()
+
+        if not meu_jogo:
+            raise ValidationError({'meu_jogo_id': 'Partida do seu clube não encontrada.'})
+
+        jogo_adversario = Partida.objects.filter(
+            id=jogo_adversario_id,
+            data_hora__lt=timezone.now(),
+        ).filter(
+            Q(mandante_id=adversario_id) | Q(visitante_id=adversario_id)
+        ).select_related('mandante', 'visitante', 'competicao').first()
+
+        if not jogo_adversario:
+            raise ValidationError({
+                'jogo_adversario_id': (
+                    'Jogo adversário inválido. Só é permitido usar partidas antigas do adversário selecionado.'
+                )
+            })
+
+        payload = {
             'filtros': {
                 'meu_jogo_id': meu_jogo_id,
                 'adversario_id': adversario_id,
                 'jogo_adversario_id': jogo_adversario_id,
             },
-            'meus_jogos': meus_jogos,
-            'adversarios': adversarios,
-            'jogos_adversario': jogos_adversario,
-            'comparativo': comparativo,
+            'comparativo': self._build_comparison(meu_jogo, meu_clube.id, jogo_adversario, adversario_id),
+        }
+
+        cache.set(cache_key, payload, CACHE_TTL_PREVISOES)
+        return payload
+
+    def get(self, request):
+        user = request.user
+        if user.user_type != 'TREINADOR' or not user.clube_id:
+            return Response(
+                {'detail': 'Recurso disponível apenas para treinador com clube associado.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        meu_clube = user.clube
+        meu_jogo_id = request.query_params.get('meu_jogo_id')
+        adversario_id = request.query_params.get('adversario_id')
+        jogo_adversario_id = request.query_params.get('jogo_adversario_id')
+        metadata_payload = self._build_metadata_payload(request, meu_clube, adversario_id)
+
+        comparativo_payload = {
+            'filtros': {
+                'meu_jogo_id': meu_jogo_id,
+                'adversario_id': adversario_id,
+                'jogo_adversario_id': jogo_adversario_id,
+            },
+            'comparativo': None,
+        }
+
+        if all([meu_jogo_id, adversario_id, jogo_adversario_id]):
+            comparativo_payload = self._build_comparativo_payload(
+                request,
+                meu_clube,
+                meu_jogo_id,
+                adversario_id,
+                jogo_adversario_id,
+            )
+
+        return Response({
+            **metadata_payload,
+            **comparativo_payload,
         })
+
+
+class PrevisoesMetadataView(PrevisoesView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        if user.user_type != 'TREINADOR' or not user.clube_id:
+            return Response(
+                {'detail': 'Recurso disponível apenas para treinador com clube associado.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        adversario_id = request.query_params.get('adversario_id')
+        return Response(self._build_metadata_payload(request, user.clube, adversario_id))
+
+
+class PrevisoesComparativoView(PrevisoesView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        if user.user_type != 'TREINADOR' or not user.clube_id:
+            return Response(
+                {'detail': 'Recurso disponível apenas para treinador com clube associado.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        meu_jogo_id = request.query_params.get('meu_jogo_id')
+        adversario_id = request.query_params.get('adversario_id')
+        jogo_adversario_id = request.query_params.get('jogo_adversario_id')
+
+        payload = self._build_comparativo_payload(
+            request,
+            user.clube,
+            meu_jogo_id,
+            adversario_id,
+            jogo_adversario_id,
+        )
+        return Response(payload)
     
 
 class PartidaViewSet(viewsets.ModelViewSet):
-    queryset = Partida.objects.all().order_by('-data_hora') 
+    queryset = Partida.objects.all().select_related('mandante', 'visitante', 'competicao').order_by('-data_hora')
     serializer_class = PartidaSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = PartidaPagination
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return PartidaListSerializer
+        return PartidaSerializer
 
     def get_queryset(self):
-        queryset = Partida.objects.all().order_by('-data_hora')
+        queryset = Partida.objects.all().select_related('mandante', 'visitante', 'competicao').order_by('-data_hora')
         user = self.request.user
 
         if user.user_type == 'TREINADOR' and user.clube_id:
             queryset = queryset.filter(
                 Q(mandante_id=user.clube_id) | Q(visitante_id=user.clube_id)
             )
+
+        if getattr(self, 'action', None) == 'retrieve':
+            queryset = queryset.prefetch_related('gols__autor', 'gols__assistencia')
 
         return queryset
 
@@ -1000,7 +1165,13 @@ class PartidaViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 class GolViewSet(viewsets.ModelViewSet):
-    queryset = Gol.objects.all()
+    queryset = Gol.objects.all().select_related(
+        'autor',
+        'assistencia',
+        'partida',
+        'partida__mandante',
+        'partida__visitante',
+    )
     serializer_class = GolSerializer
     permission_classes = [IsAuthenticated]
 
@@ -1011,7 +1182,7 @@ class GolViewSet(viewsets.ModelViewSet):
         except ValueError:
             raise Http404
         try:
-            obj = Gol.objects.get(autor_id=autor_id, partida_id=partida_id, minuto=minuto)
+            obj = self.get_queryset().get(autor_id=autor_id, partida_id=partida_id, minuto=minuto)
         except Gol.DoesNotExist:
             raise Http404
         self.check_object_permissions(self.request, obj)
@@ -1019,7 +1190,13 @@ class GolViewSet(viewsets.ModelViewSet):
 
 
 class EscalacaoViewSet(viewsets.ModelViewSet):
-    queryset = Escalacao.objects.all()
+    queryset = Escalacao.objects.all().select_related(
+        'partida',
+        'partida__mandante',
+        'partida__visitante',
+        'jogador',
+        'jogador__clube',
+    )
     serializer_class = EscalacaoSerializer
     permission_classes = [IsAuthenticated]
     TIPO_PADRAO = 'PADRAO'
@@ -1148,7 +1325,13 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
         serializer.save()
     
 class DesempenhoViewSet(viewsets.ModelViewSet):
-    queryset = Desempenho.objects.all()
+    queryset = Desempenho.objects.all().select_related(
+        'partida',
+        'partida__mandante',
+        'partida__visitante',
+        'jogador',
+        'jogador__clube',
+    )
     serializer_class = DesempenhoSerializer
     permission_classes = [IsAuthenticated]
 
@@ -1317,7 +1500,7 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
         except ValueError:
             raise Http404
         try:
-            obj = Desempenho.objects.get(partida_id=partida_id, jogador_id=jogador_id)
+            obj = self.get_queryset().get(partida_id=partida_id, jogador_id=jogador_id)
         except Desempenho.DoesNotExist:
             raise Http404
 
@@ -1330,7 +1513,7 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
         return obj
 
     def get_queryset(self):
-        queryset = Desempenho.objects.all()
+        queryset = self.queryset
         user = self.request.user
 
         if user.user_type == 'TREINADOR' and user.clube_id:
