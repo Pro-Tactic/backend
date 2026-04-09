@@ -1174,7 +1174,7 @@ class GolViewSet(viewsets.ModelViewSet):
         'partida',
         'partida__mandante',
         'partida__visitante',
-    )
+    ).order_by('pk')
     serializer_class = GolSerializer
     permission_classes = [IsAuthenticated]
 
@@ -1199,7 +1199,7 @@ class EscalacaoViewSet(viewsets.ModelViewSet):
         'partida__visitante',
         'jogador',
         'jogador__clube',
-    )
+    ).order_by('pk')
     serializer_class = EscalacaoSerializer
     permission_classes = [IsAuthenticated]
     TIPO_PADRAO = 'PADRAO'
@@ -1334,7 +1334,7 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
         'partida__visitante',
         'jogador',
         'jogador__clube',
-    )
+    ).order_by('-partida__data_hora', 'pk')
     serializer_class = DesempenhoSerializer
     permission_classes = [IsAuthenticated]
 
