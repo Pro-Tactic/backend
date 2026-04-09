@@ -67,6 +67,8 @@ class ClubeDashboardSerializer(serializers.Serializer):
 from .models import Jogador
 
 class JogadorSerializer(serializers.ModelSerializer):
+    nome_clube = serializers.ReadOnlyField(source='clube.nome')
+
     class Meta:
         model = Jogador
         fields = '__all__'
