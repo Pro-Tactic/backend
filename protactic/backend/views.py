@@ -1530,7 +1530,7 @@ class DesempenhoViewSet(viewsets.ModelViewSet):
         if jogador_id:
             queryset = queryset.filter(jogador_id=jogador_id)
         
-        return queryset
+        return queryset.order_by('-partida__data_hora')
 
     def perform_create(self, serializer):
         user = self.request.user
