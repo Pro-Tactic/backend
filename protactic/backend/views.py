@@ -10,7 +10,7 @@ from django.http import Http404
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from .models import User, Clube, Desempenho, Jogador, Competicao, Partida, Gol, Escalacao
 from .serializers import ClubeSerializer,ArtilheiroSerializer, DesempenhoSerializer, JogadorSerializer, CompeticaoSerializer, PartidaSerializer, PartidaListSerializer, GolSerializer, EscalacaoSerializer, TecnicoCreateSerializer
-from django.db.models import Q, F, Count, Case, When, IntegerField
+from django.db.models import Q, F, Count
 from django.db import transaction
 from django.utils import timezone
 from collections import defaultdict
@@ -41,6 +41,9 @@ class CustomTokenSerializer(TokenObtainPairSerializer):
 
         data['user_type'] = self.user.user_type
         data['username'] = self.user.username
+        data['first_name'] = self.user.first_name
+        data['last_name'] = self.user.last_name
+        data['clube_nome'] = self.user.clube.nome if self.user.clube else None
 
         return data
 
