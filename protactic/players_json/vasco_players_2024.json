@@ -840,7 +840,7 @@
                 "height": "173",
                 "weight": null,
                 "injured": false,
-                "photo": "https://media.api-sports.io/football/players/197032.png"
+                "photo": "http://127.0.0.1:8000/media/jogadores/jujupeitao.png"
             },
             "statistics": [
                 {
@@ -2213,7 +2213,7 @@
                 "height": "180",
                 "weight": "78",
                 "injured": false,
-                "photo": "https://media.api-sports.io/football/players/414351.png"
+                "photo": "http://127.0.0.1:8000/media/jogadores/lucas.png"
             },
             "statistics": [
                 {
