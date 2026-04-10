@@ -840,7 +840,7 @@
                 "height": "173",
                 "weight": null,
                 "injured": false,
-                "photo": "http://127.0.0.1:8000/media/jogadores/jujupeitao.png"
+                "photo": "https://media.api-sports.io/football/players/197032.png"
             },
             "statistics": [
                 {
