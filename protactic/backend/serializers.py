@@ -1,5 +1,11 @@
 from rest_framework import serializers
 from django.db.models import Q
+from .models import Jogador
+from .models import Clube, User
+from .models import Competicao
+from .models import Partida, Gol
+from datetime import datetime
+from .models import Desempenho
 
 class NavItemSerializer(serializers.Serializer):
     key = serializers.CharField()
@@ -10,9 +16,6 @@ class NavItemSerializer(serializers.Serializer):
 class NavResponseSerializer(serializers.Serializer):
     user = serializers.DictField()
     items = NavItemSerializer(many=True)
-
-from .models import Clube, User
-
 
 class TecnicoCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=6)
@@ -64,15 +67,33 @@ class ClubeDashboardSerializer(serializers.Serializer):
     estatisticas = serializers.DictField()
     artilheiros = ArtilheiroSerializer(many=True)
 
-from .models import Jogador
-
 class JogadorSerializer(serializers.ModelSerializer):
     nome_clube = serializers.ReadOnlyField(source='clube.nome')
+    foto = serializers.SerializerMethodField()
 
     class Meta:
         model = Jogador
         fields = '__all__'
-    
+
+    def get_foto(self, obj):
+        """
+        Retorna a URL da foto do jogador.
+        - Se for uma URL externa (http/https), retorna direto.
+        - Se for um path interno (upload local), constrói a URL absoluta via request.
+        - Se estiver vazio, retorna None.
+        """
+        valor = obj.foto.name if obj.foto else None
+        if not valor:
+            return None
+        # URL externa (Wikipedia, ui-avatars, etc.) — retorna sem alteração
+        if valor.startswith("http://") or valor.startswith("https://"):
+            return valor
+        # Path interno — constrói URL absoluta usando o request
+        request = self.context.get("request")
+        if request:
+            return request.build_absolute_uri(f"/media/{valor.lstrip('/')}")
+        return f"/media/{valor.lstrip('/')}"
+
     def validate_nome(self, value):
         queryset = Jogador.objects.filter(nome__iexact=value)
         if self.instance:
@@ -80,8 +101,6 @@ class JogadorSerializer(serializers.ModelSerializer):
         if queryset.exists():
             raise serializers.ValidationError("Já existe um jogador com este nome.")
         return value
-    
-from .models import Competicao
 
 class CompeticaoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -96,7 +115,6 @@ class CompeticaoSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Já existe uma competição com este nome.")
         return value
 
-from .models import Partida, Gol
 
 class GolSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField(read_only=True)
@@ -127,7 +145,6 @@ class PartidaSerializer(serializers.ModelSerializer):
         
         if mandante and visitante and data_hora:
             # Converte data_hora para apenas data (sem hora)
-            from datetime import datetime
             if isinstance(data_hora, datetime):
                 data_partida = data_hora.date()
             else:
@@ -213,8 +230,6 @@ class EscalacaoSerializer(serializers.ModelSerializer):
             })
 
         return data
-
-from .models import Desempenho
 
 class DesempenhoSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField(read_only=True)

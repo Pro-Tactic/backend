@@ -1,6 +1,6 @@
 COACH_ITEMS = [
-    {"key": "clube", "label": "Painel de Controle", "path": "/clube", "icon": "home"},
-    {"key": "inicio", "label": "Visão Geral", "path": "/inicio", "icon": "activity"},
+    {"key": "clube", "label": "Painel de Controle", "path": "/clube", "icon": "building"},
+    {"key": "inicio", "label": "Visão Geral", "path": "/inicio", "icon": "home"},
     {"key": "elenco", "label": "Central do Elenco", "path": "/elenco", "icon": "users"},
     {"key": "adversario", "label": "Previsões", "path": "/adversario", "icon": "target"},
     {"key": "tempo_real", "label": "Tempo Real", "path": "/tempo-real", "icon": "activity"},
