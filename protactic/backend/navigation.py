@@ -5,7 +5,6 @@ COACH_ITEMS = [
     {"key": "adversario", "label": "Previsões", "path": "/adversario", "icon": "target"},
     {"key": "tempo_real", "label": "Tempo Real", "path": "/tempo-real", "icon": "activity"},
     {"key": "competicoes", "label": "Competições & Clubes", "path": "/competicoes", "icon": "trophy"},
-    {"key": "listar_jogadores", "label": "Listar Jogadores", "path": "/listar-jogadores", "icon": "users"},
     {"key": "notas", "label": "Avaliação", "path": "/notas", "icon": "notas"},
     {"key": "partidas", "label": "Partidas", "path": "/partidas", "icon": "activity"},
 ]
